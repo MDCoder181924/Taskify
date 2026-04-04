@@ -1,19 +1,19 @@
-import mongoose from "mongosse";
+import mongoose from "mongoose";
 
 const adminAuthSchema = new mongoose.Schema({
     adminName: {
         type: String,
-        require: true,
-        unnique: true,
+        required: true,
+        unique: true,
     },
     adminEmail: {
         type: String,
-        require: true,
-        unnique: true
+        required: true,
+        unique: true
     },
     adminPassword: {
         type: String,
-        require: true
+        required: true
     },
     role :{
         type : String ,

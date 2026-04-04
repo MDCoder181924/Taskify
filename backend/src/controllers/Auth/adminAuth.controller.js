@@ -47,15 +47,15 @@ export const adminLogin = async (req, res, next) => {
             })
         }
 
-        const admin = await admin.findOne({adminEmail});
+        const existingAdmin = await admin.findOne({adminEmail});
 
-        if (!admin) {
+        if (!existingAdmin) {
             return res.status(404).json({
                 message: "admin not found"
             })
         }
 
-        const isPasswordMatch = await bcrypt.compare(adminPassword, admin.adminPassword);
+        const isPasswordMatch = await bcrypt.compare(adminPassword, existingAdmin.adminPassword);
 
         if(!isPasswordMatch){
             return res.status(400).json({
@@ -64,11 +64,11 @@ export const adminLogin = async (req, res, next) => {
         }
 
         const token = jwt.sign({
-            id:admin._id,
-            role:admin.role
+            id:existingAdmin._id,
+            role:existingAdmin.role
         },process.env.JWT_SECRET_KEY , {expiresIn : "1d"});
 
-        cookieStore.set("adminToken" ,token , {
+        res.cookie("adminToken" ,token , {
             httpOnly : true ,
             secure : process.env.NODE_ENV === "production" ? true : false ,
             sameSite : "strict" ,

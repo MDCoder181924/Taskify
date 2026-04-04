@@ -47,15 +47,15 @@ export const userLogin = async (req, res, next) => {
             })
         }
 
-        const user = await user.findOne({userEmail});
+        const existingUser = await user.findOne({userEmail});
 
-        if (!user) {
+        if (!existingUser) {
             return res.status(404).json({
                 message: "user not found"
             })
         }
 
-        const isPasswordMatch = await bcrypt.compare(userPassword, user.userPassword);
+        const isPasswordMatch = await bcrypt.compare(userPassword, existingUser.userPassword);
 
         if(!isPasswordMatch){
             return res.status(400).json({
@@ -64,11 +64,11 @@ export const userLogin = async (req, res, next) => {
         }
 
         const token = jwt.sign({
-            id:user._id,
-            role:user.role
+            id:existingUser._id,
+            role:existingUser.role
         },process.env.JWT_SECRET_KEY , {expiresIn : "1d"});
 
-        cookieStore.set("userToken" ,token , {
+        res.cookie("userToken" ,token , {
             httpOnly : true ,
             secure : process.env.NODE_ENV === "production" ? true : false ,
             sameSite : "strict" ,

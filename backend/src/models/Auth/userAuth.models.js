@@ -3,17 +3,17 @@ import mongoose from "mongoose";
 const userAuthSchema = new mongoose.Schema({
     userName :{
         type : String ,
-        require : true ,
-        unnique : true
+        required : true ,
+        unique : true
     },
     userEmail : {
         type : String ,
         require : true ,
-        unnique : true
+        unique : true
     },
     userPassword : {
         type : String ,
-        require : true
+        required : true
     },
     role:{
         type : String ,

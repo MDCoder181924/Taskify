@@ -1,1 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
 @import "tailwindcss";
+
+@theme {
+  --color-background: #0b1326;
+  --color-surface-dim: #0b1326;
+  --color-surface-bright: #31394d;
+  --color-surface-lowest: #060e20;
+  --color-surface-low: #131b2e;
+  --color-surface: #171f33;
+  --color-surface-high: #222a3d;
+  --color-surface-highest: #2d3449;
+  
+  --color-on-surface: #dae2fd;
+  --color-on-surface-variant: #c7c4d7;
+  
+  --color-primary: #c0c1ff;
+  --color-primary-container: #8083ff;
+  --color-on-primary: #1000a9;
+  
+  --color-secondary: #fbabff;
+  --color-secondary-container: #ae05c6;
+  --color-on-secondary: #580065;
+  
+  --color-tertiary: #4cd7f6;
+  --color-tertiary-container: #009eb9;
+  --color-on-tertiary: #003640;
+  
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Inter', system-ui, sans-serif;
+  --font-mono: 'Geist', monospace;
+  
+  --animate-orb-float: orb-float 20s infinite alternate ease-in-out;
+  --animate-scroll: scroll 40s linear infinite;
+  
+  @keyframes orb-float {
+    from { transform: translate(0, 0) scale(1); }
+    to { transform: translate(50px, 30px) scale(1.1); }
+  }
+  @keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+}
+
+@font-face {
+  font-family: 'Geist';
+  src: url('https://cdn.jsdelivr.net/npm/geist-font@1.1.0/fonts/geist-sans/Geist-Regular.woff2') format('woff2');
+}
+
+html, body {
+  background-color: #0b1326;
+  color: #dae2fd;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* Glass Card styling */
+.glass-card {
+  background: rgba(255, 255, 255, 0.025);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  transform-style: preserve-3d;
+}
+
+.glass-card:hover {
+  border-color: rgba(192, 193, 255, 0.35);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(192, 193, 255, 0.1);
+}
+
+/* Glass Card Stroke */
+.glass-card-stroke {
+  position: relative;
+}
+.glass-card-stroke::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(192, 193, 255, 0.2) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Noise overlay */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  opacity: 0.015;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #060e20;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(192, 193, 255, 0.15);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(192, 193, 255, 0.35);
+}
+
+/* Premium scroll-triggered reveal animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  will-change: transform, opacity, filter;
+  transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 1. Fade Up (standard) */
+.reveal-fade-up {
+  transform: translateY(40px) scale(0.98);
+}
+.reveal-fade-up.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* 2. Scale In (for cards and 3D frames) */
+.reveal-scale-in {
+  transform: scale(0.94) translateY(20px);
+  filter: blur(6px);
+}
+.reveal-scale-in.active {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  filter: blur(0);
+}
+
+/* 3. Slide Left (for text grids) */
+.reveal-slide-left {
+  transform: translateX(-40px);
+}
+.reveal-slide-left.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* 4. Slide Right (for media frames) */
+.reveal-slide-right {
+  transform: translateX(40px);
+}
+.reveal-slide-right.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Ambient floating animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0) translateZ(40px); }
+  50% { transform: translateY(-12px) translateZ(60px); }
+}
+
+.floating-element {
+  animation: float 6s infinite ease-in-out;
+}
+
+.floating-element-delay-1 {
+  animation: float 8s infinite ease-in-out;
+  animation-delay: -2s;
+}
+
+.floating-element-delay-2 {
+  animation: float 7s infinite ease-in-out;
+  animation-delay: -4s;
+}
+
+/* Premium Startup Loader Progress */
+@keyframes loader-progress {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.animate-loader-progress {
+  animation: loader-progress 1.8s linear infinite;
+}
+
+/* Page Transition Fades */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98) translateY(10px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

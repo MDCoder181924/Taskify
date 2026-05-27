@@ -1,19 +1,25 @@
 import mongoose from "mongoose";
 
 const userAuthSchema = new mongoose.Schema({
+    fullName:{
+        type:String,
+        required:true,
+    },
     userName :{
         type : String ,
         required : true ,
-        unique : true
     },
     userEmail : {
         type : String ,
-        require : true ,
+        required : true ,
         unique : true
     },
     userPassword : {
         type : String ,
         required : true
+    },
+    refreshToken:{
+        type:String,
     },
     role:{
         type : String ,

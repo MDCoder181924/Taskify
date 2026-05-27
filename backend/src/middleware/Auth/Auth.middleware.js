@@ -10,12 +10,12 @@ const authMiddleware = async (req, res, next) => {
             return next(); 
         }
 
-        const userExist = await user.findOne({
-            $or: [
-                { userName: name },
-                { userEmail: email }
-            ]
-        });
+        // const userExist = await user.findOne({
+        //     $or: [
+        //         { userName: name },
+        //         { userEmail: email }
+        //     ]
+        // });
 
         const adminExist = await admin.findOne({
             $or: [
@@ -24,7 +24,7 @@ const authMiddleware = async (req, res, next) => {
             ]
         });
 
-        if (userExist || adminExist) {
+        if ( adminExist) {
             return res.status(400).json({
                 message: "User already exists"
             });

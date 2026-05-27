@@ -29,7 +29,7 @@
   
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-display: 'Inter', system-ui, sans-serif;
-  --font-mono: 'Geist', monospace;
+  --font-mono: 'Consolas', 'Courier New', monospace;
   
   --animate-orb-float: orb-float 20s infinite alternate ease-in-out;
   --animate-scroll: scroll 40s linear infinite;
@@ -42,11 +42,6 @@
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
   }
-}
-
-@font-face {
-  font-family: 'Geist';
-  src: url('https://cdn.jsdelivr.net/npm/geist-font@1.1.0/fonts/geist-sans/Geist-Regular.woff2') format('woff2');
 }
 
 html, body {

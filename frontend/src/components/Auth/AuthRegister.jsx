@@ -17,6 +17,7 @@ import {
   Activity,
   Radio
 } from 'lucide-react';
+import {Link} from "react-router-dom"
 
 export default function AuthRegister({ onNavigate }) {
   const backdropRef = useRef(null);
@@ -207,13 +208,14 @@ export default function AuthRegister({ onNavigate }) {
       <div ref={backdropRef} className="absolute inset-0 w-full h-full pointer-events-none z-0" />
 
       {/* Futuristic return button */}
-      <button 
+      <Link
+      to="/"
         onClick={() => onNavigate && onNavigate('landing')}
         className="absolute top-6 left-6 px-4.5 py-2.5 rounded-xl glass-card flex items-center gap-2 font-sans font-bold text-xs text-on-surface-variant hover:text-white border-white/5 hover:border-white/20 transition-all select-none cursor-pointer z-40 group shadow-lg"
       >
         <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
         Return to Base
-      </button>
+      </Link>
 
       {/* Floating Cybernetic Tags around the centered card */}
       <div className="absolute top-[18%] left-[12%] hidden xl:flex items-center gap-2 px-3.5 py-2 rounded-xl glass-card text-primary font-mono text-[9px] uppercase tracking-widest animate-pulse border-primary/25 bg-primary/5 select-none pointer-events-none shadow-xl shadow-black/20">

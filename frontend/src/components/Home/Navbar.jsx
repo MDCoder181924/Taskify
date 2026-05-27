@@ -1,10 +1,59 @@
 import { useEffect, useState } from 'react';
-import { Menu, X, Terminal, Cpu } from 'lucide-react'; 
+import { Menu, X, Cpu } from 'lucide-react'; 
 import {Link} from 'react-router-dom';
+import { gsap } from 'gsap';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+useEffect(() => {
+  const tl = gsap.timeline();
+  tl.fromTo("#TaskifayGsap",{
+      y: -100,
+      opacity: 0
+    },
+    {
+      y: 0,
+      opacity: 1,
+      duration: 1,
+      delay:2,
+      ease: "power3.out"
+    }
+  )
+  .fromTo(".HeaderSection",{
+      y: -100,
+      opacity: 0
+    },
+    {
+      y: 0,
+      opacity: 1,
+      duration:0.6,
+      stagger: 0.08,
+      ease: "power3.out"
+    }
+  )
+  .fromTo(".logingsap",{
+    y:-100,
+    opacity:0
+  },{
+    y:0,
+    duration:0.5,
+    opacity:1,
+    delay:1,
+    ease: "power3.out"
+  })
+  .fromTo(".startgsap",{
+    y:-100,
+    opacity:0
+  },{
+    y:0,
+    duration:0.5,
+    opacity:1,
+    ease: "power3.out"
+  });
+
+}, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,14 +78,14 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto h-full px-6 md:px-12 flex items-center justify-between">
         
         {/* Logo */}
-        <div className="flex items-center gap-3">
+        <div id="TaskifayGsap" className="flex items-center gap-3">
           <div className="relative group">
             <div className="absolute -inset-1 rounded-lg bg-gradient-to-r from-primary to-secondary opacity-75 blur-sm group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
             <div className="relative w-9 h-9 rounded-lg bg-surface flex items-center justify-center border border-white/10">
               <Cpu className="w-5 h-5 text-tertiary" />
             </div>
           </div>
-          <span className="font-display font-extrabold text-2xl tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-tertiary select-none">
+          <span  className="font-display font-extrabold text-2xl tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-tertiary select-none">
             Taskify
           </span>
         </div>
@@ -47,7 +96,7 @@ export default function Navbar() {
             <a 
               key={link} 
               href={`#${link.toLowerCase()}`}
-              className={`font-sans font-medium text-sm transition-all duration-300 relative py-1 hover:text-white ${
+              className={`HeaderSection font-sans font-medium text-sm transition-all duration-300 relative py-1 hover:text-white ${
                 idx === 0 
                   ? 'text-primary border-b-2 border-primary' 
                   : 'text-on-surface-variant hover:scale-105'
@@ -60,11 +109,11 @@ export default function Navbar() {
 
         {/* Action Buttons */}
         <div className="hidden md:flex items-center gap-6">
-          <Link to="/login" className="font-sans font-medium text-sm text-on-surface-variant hover:text-white transition-colors duration-300">
+          <Link to="/login" className="logingsap font-sans font-medium text-sm text-on-surface-variant hover:text-white transition-colors duration-300">
             Login
           </Link>
           
-          <Link to="register" className="relative group overflow-hidden px-5 py-2 rounded-full font-sans font-bold text-sm text-white shadow-[0_0_20px_rgba(73,75,214,0.3)] transition-transform duration-300 hover:scale-105 active:scale-95">
+          <Link to="register" className="startgsap relative group overflow-hidden px-5 py-2 rounded-full font-sans font-bold text-sm text-white shadow-[0_0_20px_rgba(73,75,214,0.3)] transition-transform duration-300 hover:scale-105 active:scale-95">
             <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-inverse-primary to-secondary-container"></span>
             <span className="absolute bottom-0 left-0 w-full h-0 bg-white/20 transition-all duration-300 group-hover:h-full"></span>
             <span className="relative z-10">Get Started</span>
@@ -98,7 +147,7 @@ export default function Navbar() {
             <a 
               key={link} 
               href={`#${link.toLowerCase()}`}
-              className="font-sans font-semibold text-lg text-on-surface hover:text-primary transition-colors"
+              className=" font-sans font-semibold text-lg text-on-surface hover:text-primary transition-colors"
               onClick={() => setMenuOpen(false)}
             >
               {link}
@@ -111,9 +160,9 @@ export default function Navbar() {
             Login
           </Link>
           
-          <button to="/register" className="w-full py-3 rounded-xl bg-gradient-to-r from-primary to-secondary text-on-primary font-bold shadow-lg shadow-primary/20">
+          <Link to="/register" className="w-full py-3 rounded-xl bg-gradient-to-r from-primary to-secondary text-on-primary font-bold shadow-lg shadow-primary/20">
             Get Started
-          </button>
+          </Link>
         </div>
       </div>
     </header>

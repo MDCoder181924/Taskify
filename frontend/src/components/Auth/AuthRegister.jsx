@@ -1,14 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { 
-  User, 
-  Mail, 
-  Lock, 
-  Eye, 
-  EyeOff, 
-  Cpu, 
-  ArrowRight, 
-  Fingerprint, 
+import {
+  User,
+  Mail,
+  Lock,
+  Eye,
+  EyeOff,
+  Cpu,
+  ArrowRight,
+  Fingerprint,
   ShieldCheck,
   ArrowLeft,
   Shield,
@@ -17,7 +17,8 @@ import {
   Activity,
   Radio
 } from 'lucide-react';
-import {Link} from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import api from '../../api/axios.js'
 
 export default function AuthRegister({ onNavigate }) {
   const backdropRef = useRef(null);
@@ -32,6 +33,24 @@ export default function AuthRegister({ onNavigate }) {
 
   // Mouse move parallax for backdrop camera shifts
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  const navigate = useNavigate();
+
+  const registerUser = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await api.post("/auth/user/register", {
+        fullName: fullName,
+        userName: username,
+        userEmail: email,
+        userPassword: password
+      })
+      naviget("/dashboard")
+    } catch (error) {
+      console.log(error.response?.data);
+      alert("pleas add correct data")
+    }
+  }
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -192,24 +211,15 @@ export default function AuthRegister({ onNavigate }) {
     };
   }, []);
 
-  const triggerBiometricScan = () => {
-    if (onNavigate) onNavigate('landing');
-  };
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    triggerBiometricScan();
-  };
-
   return (
     <main className="relative min-h-screen w-full bg-[#0b1326] text-[#dae2fd] overflow-hidden flex items-center justify-center p-4 sm:p-6 md:p-12 select-none">
-      
+
       {/* Full screen stardust backdrop */}
       <div ref={backdropRef} className="absolute inset-0 w-full h-full pointer-events-none z-0" />
 
       {/* Futuristic return button */}
       <Link
-      to="/"
+        to="/"
         onClick={() => onNavigate && onNavigate('landing')}
         className="absolute top-6 left-6 px-4.5 py-2.5 rounded-xl glass-card flex items-center gap-2 font-sans font-bold text-xs text-on-surface-variant hover:text-white border-white/5 hover:border-white/20 transition-all select-none cursor-pointer z-40 group shadow-lg"
       >
@@ -235,8 +245,8 @@ export default function AuthRegister({ onNavigate }) {
 
       {/* Centered Premium Cybernetic Card (Frosted semi-translucent glass with high readability) */}
       <div className="w-full max-w-[540px] relative z-10 animate-fade-in my-10">
-        
-        <div 
+
+        <div
           className="p-10 sm:p-12 rounded-[2.8rem] border border-white/10 relative overflow-hidden shadow-[0_30px_70px_rgba(0,0,0,0.75)] hover:shadow-[0_0_60px_rgba(76,215,246,0.18)] hover:border-tertiary/30 transition-all duration-700 flex flex-col gap-7"
           style={{
             background: 'rgba(11, 20, 38, 0.72)',
@@ -245,7 +255,7 @@ export default function AuthRegister({ onNavigate }) {
             boxShadow: '0 30px 70px rgba(0,0,0,0.65), inset 0 1px 1px rgba(255,255,255,0.08)'
           }}
         >
-          
+
           {/* Status chips inside card top-right */}
           <div className="absolute top-8 right-10 flex gap-2 items-center">
             <span className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 font-mono text-[8px] uppercase font-bold tracking-wider">
@@ -259,10 +269,10 @@ export default function AuthRegister({ onNavigate }) {
           </div>
 
           {/* Neon animated scanning line inside the card (triggers once on mount) */}
-          <div className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-tertiary to-transparent opacity-85 pointer-events-none animate-scan-down" 
-               style={{
-                 animation: 'scan-down-key 2s cubic-bezier(0.25, 1, 0.5, 1) forwards'
-               }}
+          <div className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-tertiary to-transparent opacity-85 pointer-events-none animate-scan-down"
+            style={{
+              animation: 'scan-down-key 2s cubic-bezier(0.25, 1, 0.5, 1) forwards'
+            }}
           />
 
           {/* Top accent line */}
@@ -276,7 +286,7 @@ export default function AuthRegister({ onNavigate }) {
                 <Cpu className="w-5.5 h-5.5 text-tertiary animate-pulse" />
               </div>
             </div>
-            
+
             <div className="flex flex-col gap-1.5 mt-1">
               <span className="font-display font-extrabold text-3xl tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-tertiary drop-shadow-[0_0_15px_rgba(192,193,255,0.25)]">
                 Taskify AI
@@ -301,8 +311,8 @@ export default function AuthRegister({ onNavigate }) {
           </div>
 
           {/* Registration Form */}
-          <form onSubmit={handleFormSubmit} className="flex flex-col gap-4.5 text-left">
-            
+          <form onSubmit={registerUser} className="flex flex-col gap-4.5 text-left">
+
             {/* Full Name & Username */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="flex flex-col gap-1.5">
@@ -311,7 +321,7 @@ export default function AuthRegister({ onNavigate }) {
                   <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-on-surface-variant/30 group-focus-within:text-tertiary transition-colors">
                     <User className="w-4 h-4" />
                   </div>
-                  <input 
+                  <input
                     type="text"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
@@ -321,10 +331,10 @@ export default function AuthRegister({ onNavigate }) {
                   />
                 </div>
               </div>
-              
+
               <div className="flex flex-col gap-1.5">
                 <label className="font-mono text-[9.5px] text-on-surface-variant uppercase tracking-widest px-1">Username</label>
-                <input 
+                <input
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
@@ -342,7 +352,7 @@ export default function AuthRegister({ onNavigate }) {
                 <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-on-surface-variant/30 group-focus-within:text-tertiary transition-colors">
                   <Mail className="w-4.5 h-4.5" />
                 </div>
-                <input 
+                <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -360,7 +370,7 @@ export default function AuthRegister({ onNavigate }) {
                 <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-on-surface-variant/30 group-focus-within:text-tertiary transition-colors">
                   <Lock className="w-4 h-4" />
                 </div>
-                <input 
+                <input
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -368,7 +378,7 @@ export default function AuthRegister({ onNavigate }) {
                   className="w-full bg-[#070d1a]/60 border border-white/10 rounded-2xl pl-11 pr-12 py-3.5 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none transition-all placeholder-on-surface-variant/20 font-sans shadow-inner shadow-black/25 focus:shadow-[0_0_15px_rgba(76,215,246,0.15)]"
                   required
                 />
-                <button 
+                <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute inset-y-0 right-4 flex items-center text-on-surface-variant/30 hover:text-white transition-colors cursor-pointer"
@@ -391,7 +401,7 @@ export default function AuthRegister({ onNavigate }) {
             {/* Confirm Password */}
             <div className="flex flex-col gap-1.5 pb-1">
               <label className="font-mono text-[9.5px] text-on-surface-variant uppercase tracking-widest px-1">Confirm Password</label>
-              <input 
+              <input
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
@@ -403,10 +413,10 @@ export default function AuthRegister({ onNavigate }) {
 
             {/* Terms checkbox */}
             <div className="flex items-start gap-2.5 py-1 px-1">
-              <input 
-                type="checkbox" 
-                className="mt-1 bg-black/20 border-white/10 rounded text-primary focus:ring-offset-background focus:ring-primary w-4.5 h-4.5 cursor-pointer" 
-                required 
+              <input
+                type="checkbox"
+                className="mt-1 bg-black/20 border-white/10 rounded text-primary focus:ring-offset-background focus:ring-primary w-4.5 h-4.5 cursor-pointer"
+                required
               />
               <label className="text-on-surface-variant text-[11px] leading-relaxed cursor-pointer select-none">
                 I agree to the <a className="text-primary hover:underline font-bold" href="#">Terms</a> and <a className="text-primary hover:underline font-bold" href="#">Privacy Policy</a>.
@@ -414,7 +424,7 @@ export default function AuthRegister({ onNavigate }) {
             </div>
 
             {/* Create Account Action */}
-            <button 
+            <button
               type="submit"
               className="w-full relative group overflow-hidden py-4 rounded-2xl font-sans font-bold text-sm text-white shadow-[0_0_25px_rgba(174,5,198,0.4)] transition-transform duration-300 hover:scale-102 active:scale-98 cursor-pointer mt-1"
             >
@@ -440,18 +450,22 @@ export default function AuthRegister({ onNavigate }) {
 
           {/* Social options */}
           <div className="grid grid-cols-2 gap-4">
-            <button 
-              onClick={triggerBiometricScan}
+            <button
+              onClick={() => {
+                window.location.href = "http://localhost:3000/auth/user/google";
+              }}
               type="button"
               className="flex items-center justify-center gap-2 py-3 rounded-2xl border border-white/10 bg-white/3 hover:bg-white/5 transition-all text-xs font-sans font-bold text-white hover:scale-102 active:scale-98 cursor-pointer shadow-sm"
             >
               <svg className="w-4.5 h-4.5 text-secondary" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12.24 10.285V13.4h6.887c-.275 1.565-1.88 4.604-6.887 4.604-4.33 0-7.859-3.579-7.859-7.993 0-4.414 3.53-7.993 7.86-7.993 2.46 0 4.108 1.018 5.047 1.914l2.427-2.33C17.955 1.83 15.34 1 12.24 1 5.926 1 1 5.926 1 12.2s4.926 11.2 11.24 11.2c6.59 0 11-4.63 11-11.2 0-.756-.08-1.333-.18-1.915H12.24z"/>
+                <path d="M12.24 10.285V13.4h6.887c-.275 1.565-1.88 4.604-6.887 4.604-4.33 0-7.859-3.579-7.859-7.993 0-4.414 3.53-7.993 7.86-7.993 2.46 0 4.108 1.018 5.047 1.914l2.427-2.33C17.955 1.83 15.34 1 12.24 1 5.926 1 1 5.926 1 12.2s4.926 11.2 11.24 11.2c6.59 0 11-4.63 11-11.2 0-.756-.08-1.333-.18-1.915H12.24z" />
               </svg>
               Google
             </button>
-            <button 
-              onClick={triggerBiometricScan}
+            <button
+              onClick={() => {
+                window.location.href = "http://localhost:3000/auth/user/github";
+              }}
               type="button"
               className="flex items-center justify-center gap-2 py-3 border border-white/10 rounded-2xl bg-white/3 hover:bg-white/5 transition-all text-xs font-sans font-bold text-white hover:scale-102 active:scale-98 cursor-pointer shadow-sm"
             >
@@ -466,9 +480,9 @@ export default function AuthRegister({ onNavigate }) {
           <div className="text-center mt-1">
             <p className="text-xs text-on-surface-variant/80 font-sans">
               Already have an account?{' '}
-              <button 
-                type="button" 
-                onClick={() => onNavigate && onNavigate('login')}
+              <button
+                type="button"
+                onClick={() => navigate('/login')}
                 className="text-primary font-bold hover:text-secondary transition-colors cursor-pointer"
               >
                 Sign In
@@ -479,8 +493,8 @@ export default function AuthRegister({ onNavigate }) {
         </div>
       </div>
 
-    {/* Embedded inline keyframe scan animations */}
-    <style>{`
+      {/* Embedded inline keyframe scan animations */}
+      <style>{`
       @keyframes scan-beam-key {
         0% { top: 0%; opacity: 0.2; }
         10% { opacity: 1; }
@@ -492,6 +506,6 @@ export default function AuthRegister({ onNavigate }) {
         100% { top: 100%; opacity: 0; }
       }
     `}</style>
-  </main>
+    </main >
   );
 }

@@ -16,7 +16,8 @@ import {
   Activity,
   Radio
 } from 'lucide-react';
-import {Link} from "react-router-dom";
+import {Link , useNavigate} from "react-router-dom";
+import api from '../../api/axios'
 
 export default function AuthLogin({ onNavigate }) {
   const backdropRef = useRef(null);
@@ -28,6 +29,20 @@ export default function AuthLogin({ onNavigate }) {
 
   // Mouse move parallax for camera shifts
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  const naviget = useNavigate();
+  const loginUser = async() =>{
+    try{
+      const res = await api.post("/auth/user/login" , {
+        userEmail :email ,
+        userPassword:password, 
+      })
+      naviget("/dashboard")
+    }catch(error){
+      console.log(error);
+      alert("your data not found");
+    }
+  }
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -178,13 +193,9 @@ export default function AuthLogin({ onNavigate }) {
     };
   }, []);
 
-  const triggerBiometricScan = () => {
-    if (onNavigate) onNavigate('landing');
-  };
-
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    triggerBiometricScan();
+    loginUser();
   };
 
   return (
@@ -356,7 +367,6 @@ export default function AuthLogin({ onNavigate }) {
               
               <button 
                 type="button"
-                onClick={triggerBiometricScan}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-tertiary/10 border border-tertiary/20 text-tertiary font-mono text-[9px] uppercase tracking-wider hover:bg-tertiary/20 transition-all cursor-pointer shadow-lg animate-pulse"
               >
                 <Fingerprint className="w-3.5 h-3.5" />
@@ -392,7 +402,9 @@ export default function AuthLogin({ onNavigate }) {
           {/* Social Logins */}
           <div className="grid grid-cols-2 gap-4">
             <button 
-              onClick={triggerBiometricScan}
+              onClick={()=>{
+                window.location.href = "http://localhost:3000/auth/user/google";
+              }}
               className="flex items-center justify-center gap-2.5 py-3 rounded-2xl border border-white/10 bg-white/3 hover:bg-white/5 transition-all text-xs font-sans font-bold text-white hover:scale-102 active:scale-98 cursor-pointer shadow-sm"
             >
               <svg className="w-4.5 h-4.5 text-secondary" viewBox="0 0 24 24" fill="currentColor">
@@ -401,7 +413,9 @@ export default function AuthLogin({ onNavigate }) {
               Google
             </button>
             <button 
-              onClick={triggerBiometricScan}
+              onClick={()=>{
+                window.location.href = "http://localhost:3000/auth/user/github";
+              }}
               className="flex items-center justify-center gap-2.5 py-3 rounded-2xl border border-white/10 bg-white/3 hover:bg-white/5 transition-all text-xs font-sans font-bold text-white hover:scale-102 active:scale-98 cursor-pointer shadow-sm"
             >
               <svg className="w-4.5 h-4.5 text-primary" viewBox="0 0 24 24" fill="currentColor">

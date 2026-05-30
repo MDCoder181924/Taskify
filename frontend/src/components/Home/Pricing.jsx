@@ -65,13 +65,13 @@ export default function Pricing() {
             key={tier.name}
             className={`reveal reveal-scale-in glass-card p-8 md:p-10 rounded-[2.5rem] flex flex-col h-full hover:scale-105 active:scale-98 transition-all duration-500 relative z-10 ${
               tier.recommended 
-                ? 'border-primary/45 bg-primary/[0.03] shadow-[0_0_50px_rgba(192,193,255,0.12)] md:scale-105 md:hover:scale-110 z-20' 
+                ? 'border-primary/45 bg-primary/[0.03] shadow-[0_0_50px_rgba(239,47,41,0.12)] md:scale-105 md:hover:scale-110 z-20' 
                 : 'border-white/10'
             }`}
           >
             {/* Recommended Tag */}
             {tier.recommended && (
-              <span className="absolute top-4 right-4 bg-primary text-[#0b1326] px-3.5 py-1 rounded-full font-mono text-[9px] uppercase font-bold tracking-wider shadow-[0_0_15px_rgba(192,193,255,0.4)]">
+              <span className="absolute top-4 right-4 bg-primary text-[#050505] px-3.5 py-1 rounded-full font-mono text-[9px] uppercase font-bold tracking-wider shadow-[0_0_15px_rgba(239,47,41,0.4)]">
                 Recommended
               </span>
             )}
@@ -112,7 +112,7 @@ export default function Pricing() {
             <button 
               className={`w-full py-4 rounded-xl font-sans font-bold text-sm transition-all duration-300 ${
                 tier.recommended 
-                  ? 'bg-primary text-[#0b1326] shadow-xl shadow-primary/15 hover:shadow-primary/30 hover:scale-103' 
+                  ? 'bg-primary text-[#050505] shadow-xl shadow-primary/15 hover:shadow-primary/30 hover:scale-103' 
                   : 'bg-white/5 border border-white/10 text-white hover:bg-white/10 hover:border-white/20'
               }`}
             >

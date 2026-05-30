@@ -57,7 +57,7 @@ function Home() {
       
       {loading && (
         <div 
-          className={`fixed inset-0 z-[9999] bg-[#0b1326] flex flex-col items-center justify-center transition-all duration-700 cubic-bezier(0.16, 1, 0.3, 1) ${
+          className={`fixed inset-0 z-[9999] bg-[#050505] flex flex-col items-center justify-center transition-all duration-700 cubic-bezier(0.16, 1, 0.3, 1) ${
             fadeLoader ? 'opacity-0 scale-95 pointer-events-none' : 'opacity-100'
           }`}
         >
@@ -68,9 +68,9 @@ function Home() {
           <div className="flex flex-col items-center gap-6 relative z-10">
             <div className="relative w-20 h-20 flex items-center justify-center">
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary via-secondary to-tertiary animate-spin" style={{ animationDuration: '4s' }} />
-              <div className="absolute inset-[3px] rounded-2xl bg-[#0b1326] flex items-center justify-center">
+              <div className="absolute inset-[3px] rounded-2xl bg-[#050505] flex items-center justify-center">
                 <svg className="w-8 h-8 text-tertiary animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" stroke="#4cd7f6" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" stroke="#ffa940" />
                 </svg>
               </div>
             </div>

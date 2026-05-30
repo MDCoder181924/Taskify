@@ -71,7 +71,7 @@ useEffect(() => {
     <header 
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-in-out ${
         scrolled 
-          ? 'h-16 bg-[#0b1326]/75 backdrop-blur-2xl border-b border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.4)]' 
+          ? 'h-16 bg-[#050505]/75 backdrop-blur-2xl border-b border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.4)]' 
           : 'h-20 bg-transparent border-b border-transparent'
       }`}
     >

@@ -82,7 +82,7 @@ export default function AgentSimulator() {
       <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none">
         <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
           <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#c0c1ff" strokeWidth="0.5"/>
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#EF2F29" strokeWidth="0.5"/>
           </pattern>
           <rect width="100%" height="100%" fill="url(#grid)" />
         </svg>
@@ -91,14 +91,14 @@ export default function AgentSimulator() {
       <div className="relative z-10 flex flex-col items-center reveal reveal-fade-up">
         
         {/* Terminal Chat Box Container */}
-        <div className="max-w-3xl w-full glass-card rounded-[2.5rem] border-white/10 shadow-[0_0_100px_rgba(73,75,214,0.12)] overflow-hidden">
+        <div className="max-w-3xl w-full glass-card rounded-[2.5rem] border-white/10 shadow-[0_0_100px_rgba(239,47,41,0.12)] overflow-hidden">
           
           {/* Header */}
           <div className="px-6 py-4.5 border-b border-white/10 flex items-center justify-between bg-white/5">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-[#ffb4ab]" />
-              <div className="w-3 h-3 rounded-full bg-[#fbabff]" />
-              <div className="w-3 h-3 rounded-full bg-[#4cd7f6]" />
+              <div className="w-3 h-3 rounded-full bg-[#EF2F29]" />
+              <div className="w-3 h-3 rounded-full bg-[#ff6b4a]" />
+              <div className="w-3 h-3 rounded-full bg-[#ffa940]" />
             </div>
             
             <div className="flex items-center gap-2 font-mono text-[11px] text-on-surface-variant font-medium uppercase tracking-wider select-none">
@@ -130,14 +130,14 @@ export default function AgentSimulator() {
                 <div 
                   className={`p-4.5 rounded-2xl border text-sm max-w-[80%] leading-relaxed shadow-lg ${
                     msg.sender === 'user'
-                      ? 'bg-gradient-to-r from-primary to-secondary text-[#0b1326] font-medium border-transparent rounded-tr-none'
+                      ? 'bg-gradient-to-r from-primary to-secondary text-[#050505] font-medium border-transparent rounded-tr-none'
                       : 'bg-surface-high/60 backdrop-blur border-white/5 text-on-surface rounded-tl-none'
                   }`}
                 >
                   <div>{msg.text}</div>
                   <div 
                     className={`text-[9px] mt-2.5 font-mono ${
-                      msg.sender === 'user' ? 'text-[#0b1326]/60' : 'text-on-surface-variant/50'
+                      msg.sender === 'user' ? 'text-[#050505]/60' : 'text-on-surface-variant/50'
                     }`}
                   >
                     {msg.time}
@@ -185,7 +185,7 @@ export default function AgentSimulator() {
             />
             <button 
               type="submit"
-              className="bg-primary text-[#0b1326] p-3.5 rounded-xl hover:scale-105 transition-transform active:scale-95 flex items-center justify-center shadow-lg"
+              className="bg-primary text-[#050505] p-3.5 rounded-xl hover:scale-105 transition-transform active:scale-95 flex items-center justify-center shadow-lg"
             >
               <Send className="w-4.5 h-4.5" />
             </button>

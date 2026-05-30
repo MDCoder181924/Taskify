@@ -54,8 +54,8 @@ export default function BentoFeatures() {
             <svg className="w-full h-full" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <linearGradient id="gridGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#c0c1ff" />
-                  <stop offset="100%" stopColor="#fbabff" />
+                  <stop offset="0%" stopColor="#EF2F29" />
+                  <stop offset="100%" stopColor="#ff6b4a" />
                 </linearGradient>
               </defs>
               <circle cx="100" cy="100" r="70" fill="none" stroke="url(#gridGrad)" strokeWidth="0.5" strokeDasharray="3, 3" />
@@ -65,9 +65,9 @@ export default function BentoFeatures() {
               <path d="M 50,50 L 150,150" stroke="url(#gridGrad)" strokeWidth="0.2" />
               <path d="M 150,50 L 50,150" stroke="url(#gridGrad)" strokeWidth="0.2" />
               {/* Floating pulsing stars */}
-              <circle cx="100" cy="30" r="2" fill="#c0c1ff" className="animate-ping" style={{ animationDuration: '3s' }} />
-              <circle cx="150" cy="50" r="1.5" fill="#fbabff" />
-              <circle cx="50" cy="150" r="2.5" fill="#4cd7f6" />
+              <circle cx="100" cy="30" r="2" fill="#EF2F29" className="animate-ping" style={{ animationDuration: '3s' }} />
+              <circle cx="150" cy="50" r="1.5" fill="#ff6b4a" />
+              <circle cx="50" cy="150" r="2.5" fill="#ffa940" />
             </svg>
           </div>
         </div>
@@ -91,13 +91,13 @@ export default function BentoFeatures() {
               {['#8083ff', '#ae05c6', '#009eb9'].map((col, idx) => (
                 <div 
                   key={idx}
-                  className="w-9 h-9 rounded-full border-2 border-[#0b1326] flex items-center justify-center text-white text-[10px] font-bold shadow-md"
+                  className="w-9 h-9 rounded-full border-2 border-[#050505] flex items-center justify-center text-white text-[10px] font-bold shadow-md"
                   style={{ backgroundColor: col }}
                 >
                   U{idx + 1}
                 </div>
               ))}
-              <div className="w-9 h-9 rounded-full border-2 border-[#0b1326] bg-[#2d3449] flex items-center justify-center text-on-surface-variant text-[10px] font-bold">
+              <div className="w-9 h-9 rounded-full border-2 border-[#050505] bg-[#242424] flex items-center justify-center text-on-surface-variant text-[10px] font-bold">
                 +12
               </div>
             </div>

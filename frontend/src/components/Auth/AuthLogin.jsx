@@ -80,9 +80,9 @@ export default function AuthLogin({ onNavigate }) {
 
     // Color definitions for stardust
     const colorPalette = [
-      new THREE.Color(0xc0c1ff), // Primary Purple
-      new THREE.Color(0xfbabff), // Secondary Pink
-      new THREE.Color(0x4cd7f6), // Tertiary Cyan
+      new THREE.Color(0xef2f29), // Primary Red
+      new THREE.Color(0xff6b4a), // Secondary Orange
+      new THREE.Color(0xffa940), // Tertiary Gold
     ];
 
     for (let i = 0; i < particleCount; i++) {
@@ -199,7 +199,7 @@ export default function AuthLogin({ onNavigate }) {
   };
 
   return (
-    <main className="relative min-h-screen w-full bg-[#0b1326] text-[#dae2fd] overflow-hidden flex items-center justify-center p-4 sm:p-6 md:p-12 select-none">
+    <main className="relative min-h-screen w-full bg-[#050505] text-[#dae2fd] overflow-hidden flex items-center justify-center p-4 sm:p-6 md:p-12 select-none">
       
       {/* Full screen stardust backdrop */}
       <div ref={backdropRef} className="absolute inset-0 w-full h-full pointer-events-none z-0" />
@@ -233,9 +233,9 @@ export default function AuthLogin({ onNavigate }) {
       <div className="w-full max-w-[500px] relative z-10 animate-fade-in my-10">
         
         <div 
-          className="p-10 sm:p-12 rounded-[2.8rem] border border-white/10 relative overflow-hidden shadow-[0_30px_70px_rgba(0,0,0,0.75)] hover:shadow-[0_0_60px_rgba(76,215,246,0.18)] hover:border-tertiary/30 transition-all duration-700 flex flex-col gap-8"
+          className="p-10 sm:p-12 rounded-[2.8rem] border border-white/10 relative overflow-hidden shadow-[0_30px_70px_rgba(0,0,0,0.75)] hover:shadow-[0_0_60px_rgba(239,47,41,0.18)] hover:border-primary/30 transition-all duration-700 flex flex-col gap-8"
           style={{
-            background: 'rgba(11, 20, 38, 0.72)',
+            background: 'rgba(5, 5, 5, 0.72)',
             backdropFilter: 'blur(30px)',
             WebkitBackdropFilter: 'blur(30px)',
             boxShadow: '0 30px 70px rgba(0,0,0,0.65), inset 0 1px 1px rgba(255,255,255,0.08)'
@@ -313,7 +313,7 @@ export default function AuthLogin({ onNavigate }) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@company.com"
-                  className="w-full bg-[#070d1a]/60 border border-white/10 rounded-2xl pl-11 pr-5 py-4.5 text-sm text-on-surface focus:border-tertiary focus:ring-0 focus:shadow-[0_0_20px_rgba(76,215,246,0.22)] outline-none transition-all placeholder-on-surface-variant/20 font-sans shadow-inner shadow-black/25"
+                  className="w-full bg-[#000000]/60 border border-white/10 rounded-2xl pl-11 pr-5 py-4.5 text-sm text-on-surface focus:border-primary focus:ring-0 focus:shadow-[0_0_20px_rgba(239,47,41,0.22)] outline-none transition-all placeholder-on-surface-variant/20 font-sans shadow-inner shadow-black/25"
                   required
                 />
               </div>
@@ -327,7 +327,7 @@ export default function AuthLogin({ onNavigate }) {
                 </label>
                 <button 
                   type="button"
-                  onClick={() => triggerBiometricScan()}
+                  // onClick={() => triggerBiometricScan()}
                   className="font-sans text-[11px] text-primary hover:text-secondary transition-colors cursor-pointer"
                 >
                   Forgot password?
@@ -342,7 +342,7 @@ export default function AuthLogin({ onNavigate }) {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full bg-[#070d1a]/60 border border-white/10 rounded-2xl pl-11 pr-12 py-4.5 text-sm text-on-surface focus:border-tertiary focus:ring-0 focus:shadow-[0_0_20px_rgba(76,215,246,0.22)] outline-none transition-all placeholder-on-surface-variant/20 font-sans shadow-inner shadow-black/25"
+                  className="w-full bg-[#000000]/60 border border-white/10 rounded-2xl pl-11 pr-12 py-4.5 text-sm text-on-surface focus:border-primary focus:ring-0 focus:shadow-[0_0_20px_rgba(239,47,41,0.22)] outline-none transition-all placeholder-on-surface-variant/20 font-sans shadow-inner shadow-black/25"
                   required
                 />
                 <button 
@@ -395,7 +395,7 @@ export default function AuthLogin({ onNavigate }) {
               <div className="w-full border-t border-white/5"></div>
             </div>
             <div className="relative flex justify-center text-[9px] font-mono uppercase tracking-widest">
-              <span className="px-4 bg-[#0b1426] rounded-md text-on-surface-variant/40">Or continue with</span>
+              <span className="px-4 bg-[#050505] rounded-md text-on-surface-variant/40">Or continue with</span>
             </div>
           </div>
 

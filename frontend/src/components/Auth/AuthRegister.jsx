@@ -45,7 +45,7 @@ export default function AuthRegister({ onNavigate }) {
         userEmail: email,
         userPassword: password
       })
-      naviget("/dashboard")
+      navigete("/dashboard")
     } catch (error) {
       console.log(error.response?.data);
       alert("pleas add correct data")
@@ -98,9 +98,9 @@ export default function AuthRegister({ onNavigate }) {
 
     // Color definitions for stardust
     const colorPalette = [
-      new THREE.Color(0xc0c1ff), // Primary Purple
-      new THREE.Color(0xfbabff), // Secondary Pink
-      new THREE.Color(0x4cd7f6), // Light Cyan
+      new THREE.Color(0xef2f29), // Primary Red
+      new THREE.Color(0xff6b4a), // Secondary Orange
+      new THREE.Color(0xffa940), // Light Gold
     ];
 
     for (let i = 0; i < particleCount; i++) {
@@ -212,7 +212,7 @@ export default function AuthRegister({ onNavigate }) {
   }, []);
 
   return (
-    <main className="relative min-h-screen w-full bg-[#0b1326] text-[#dae2fd] overflow-hidden flex items-center justify-center p-4 sm:p-6 md:p-12 select-none">
+    <main className="relative min-h-screen w-full bg-[#050505] text-[#dae2fd] overflow-hidden flex items-center justify-center p-4 sm:p-6 md:p-12 select-none">
 
       {/* Full screen stardust backdrop */}
       <div ref={backdropRef} className="absolute inset-0 w-full h-full pointer-events-none z-0" />
@@ -247,9 +247,9 @@ export default function AuthRegister({ onNavigate }) {
       <div className="w-full max-w-[540px] relative z-10 animate-fade-in my-10">
 
         <div
-          className="p-10 sm:p-12 rounded-[2.8rem] border border-white/10 relative overflow-hidden shadow-[0_30px_70px_rgba(0,0,0,0.75)] hover:shadow-[0_0_60px_rgba(76,215,246,0.18)] hover:border-tertiary/30 transition-all duration-700 flex flex-col gap-7"
+          className="p-10 sm:p-12 rounded-[2.8rem] border border-white/10 relative overflow-hidden shadow-[0_30px_70px_rgba(0,0,0,0.75)] hover:shadow-[0_0_60px_rgba(239,47,41,0.18)] hover:border-primary/30 transition-all duration-700 flex flex-col gap-7"
           style={{
-            background: 'rgba(11, 20, 38, 0.72)',
+            background: 'rgba(5, 5, 5, 0.72)',
             backdropFilter: 'blur(30px)',
             WebkitBackdropFilter: 'blur(30px)',
             boxShadow: '0 30px 70px rgba(0,0,0,0.65), inset 0 1px 1px rgba(255,255,255,0.08)'
@@ -326,7 +326,7 @@ export default function AuthRegister({ onNavigate }) {
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="John Doe"
-                    className="w-full bg-[#070d1a]/60 border border-white/10 rounded-2xl pl-11 pr-5 py-3.5 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none transition-all placeholder-on-surface-variant/20 font-sans shadow-inner shadow-black/25 focus:shadow-[0_0_15px_rgba(76,215,246,0.15)]"
+                    className="w-full bg-[#000000]/60 border border-white/10 rounded-2xl pl-11 pr-5 py-3.5 text-sm text-on-surface focus:border-primary focus:ring-0 outline-none transition-all placeholder-on-surface-variant/20 font-sans shadow-inner shadow-black/25 focus:shadow-[0_0_15px_rgba(239,47,41,0.15)]"
                     required
                   />
                 </div>
@@ -339,7 +339,7 @@ export default function AuthRegister({ onNavigate }) {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="johndoe_ai"
-                  className="w-full bg-[#070d1a]/60 border border-white/10 rounded-2xl px-5 py-3.5 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none transition-all placeholder-on-surface-variant/20 font-sans shadow-inner shadow-black/25 focus:shadow-[0_0_15px_rgba(76,215,246,0.15)]"
+                  className="w-full bg-[#000000]/60 border border-white/10 rounded-2xl px-5 py-3.5 text-sm text-on-surface focus:border-primary focus:ring-0 outline-none transition-all placeholder-on-surface-variant/20 font-sans shadow-inner shadow-black/25 focus:shadow-[0_0_15px_rgba(239,47,41,0.15)]"
                   required
                 />
               </div>
@@ -357,7 +357,7 @@ export default function AuthRegister({ onNavigate }) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@company.com"
-                  className="w-full bg-[#070d1a]/60 border border-white/10 rounded-2xl pl-11 pr-5 py-3.5 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none transition-all placeholder-on-surface-variant/20 font-sans shadow-inner shadow-black/25 focus:shadow-[0_0_15px_rgba(76,215,246,0.15)]"
+                  className="w-full bg-[#000000]/60 border border-white/10 rounded-2xl pl-11 pr-5 py-3.5 text-sm text-on-surface focus:border-primary focus:ring-0 outline-none transition-all placeholder-on-surface-variant/20 font-sans shadow-inner shadow-black/25 focus:shadow-[0_0_15px_rgba(239,47,41,0.15)]"
                   required
                 />
               </div>
@@ -375,7 +375,7 @@ export default function AuthRegister({ onNavigate }) {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full bg-[#070d1a]/60 border border-white/10 rounded-2xl pl-11 pr-12 py-3.5 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none transition-all placeholder-on-surface-variant/20 font-sans shadow-inner shadow-black/25 focus:shadow-[0_0_15px_rgba(76,215,246,0.15)]"
+                  className="w-full bg-[#000000]/60 border border-white/10 rounded-2xl pl-11 pr-12 py-3.5 text-sm text-on-surface focus:border-primary focus:ring-0 outline-none transition-all placeholder-on-surface-variant/20 font-sans shadow-inner shadow-black/25 focus:shadow-[0_0_15px_rgba(239,47,41,0.15)]"
                   required
                 />
                 <button
@@ -389,9 +389,9 @@ export default function AuthRegister({ onNavigate }) {
 
               {/* Password Strength Indicator */}
               <div className="flex gap-1.5 items-center mt-1 px-1">
-                <div className={`h-1.5 flex-grow rounded-full transition-all duration-300 ${strength.percent >= 1 ? 'bg-tertiary shadow-[0_0_8px_rgba(76,215,246,0.3)]' : 'bg-white/10'}`} />
-                <div className={`h-1.5 flex-grow rounded-full transition-all duration-300 ${strength.percent >= 2 ? 'bg-tertiary shadow-[0_0_8px_rgba(76,215,246,0.3)]' : 'bg-white/10'}`} />
-                <div className={`h-1.5 flex-grow rounded-full transition-all duration-300 ${strength.percent >= 4 ? 'bg-tertiary shadow-[0_0_8px_rgba(76,215,246,0.3)]' : 'bg-white/10'}`} />
+                <div className={`h-1.5 flex-grow rounded-full transition-all duration-300 ${strength.percent >= 1 ? 'bg-primary shadow-[0_0_8px_rgba(239,47,41,0.3)]' : 'bg-white/10'}`} />
+                <div className={`h-1.5 flex-grow rounded-full transition-all duration-300 ${strength.percent >= 2 ? 'bg-primary shadow-[0_0_8px_rgba(239,47,41,0.3)]' : 'bg-white/10'}`} />
+                <div className={`h-1.5 flex-grow rounded-full transition-all duration-300 ${strength.percent >= 4 ? 'bg-primary shadow-[0_0_8px_rgba(239,47,41,0.3)]' : 'bg-white/10'}`} />
                 <span className={`text-[9px] font-bold ml-2 shrink-0 transition-colors duration-300 ${strength.color}`}>
                   {strength.label}
                 </span>
@@ -406,7 +406,7 @@ export default function AuthRegister({ onNavigate }) {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full bg-[#070d1a]/60 border border-white/10 rounded-2xl px-5 py-3.5 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none transition-all placeholder-on-surface-variant/20 font-sans shadow-inner shadow-black/25 focus:shadow-[0_0_15px_rgba(76,215,246,0.15)]"
+                className="w-full bg-[#000000]/60 border border-white/10 rounded-2xl px-5 py-3.5 text-sm text-on-surface focus:border-primary focus:ring-0 outline-none transition-all placeholder-on-surface-variant/20 font-sans shadow-inner shadow-black/25 focus:shadow-[0_0_15px_rgba(239,47,41,0.15)]"
                 required
               />
             </div>
@@ -444,7 +444,7 @@ export default function AuthRegister({ onNavigate }) {
               <div className="w-full border-t border-white/5"></div>
             </div>
             <div className="relative flex justify-center text-[9px] font-mono uppercase tracking-widest">
-              <span className="px-4 bg-[#0b1426] rounded-md text-on-surface-variant/40">Or continue with</span>
+              <span className="px-4 bg-[#050505] rounded-md text-on-surface-variant/40">Or continue with</span>
             </div>
           </div>
 

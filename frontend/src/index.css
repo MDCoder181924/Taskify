@@ -3,29 +3,29 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #0b1326;
-  --color-surface-dim: #0b1326;
-  --color-surface-bright: #31394d;
-  --color-surface-lowest: #060e20;
-  --color-surface-low: #131b2e;
-  --color-surface: #171f33;
-  --color-surface-high: #222a3d;
-  --color-surface-highest: #2d3449;
+  --color-background: #050505;
+  --color-surface-dim: #050505;
+  --color-surface-bright: #2c2c2c;
+  --color-surface-lowest: #000000;
+  --color-surface-low: #0d0d0d;
+  --color-surface: #121212;
+  --color-surface-high: #1c1c1c;
+  --color-surface-highest: #242424;
   
   --color-on-surface: #dae2fd;
   --color-on-surface-variant: #c7c4d7;
   
-  --color-primary: #c0c1ff;
-  --color-primary-container: #8083ff;
-  --color-on-primary: #1000a9;
+  --color-primary: #EF2F29;
+  --color-primary-container: #b21b16;
+  --color-on-primary: #ffffff;
   
-  --color-secondary: #fbabff;
-  --color-secondary-container: #ae05c6;
-  --color-on-secondary: #580065;
+  --color-secondary: #ff6b4a;
+  --color-secondary-container: #c93b1d;
+  --color-on-secondary: #ffffff;
   
-  --color-tertiary: #4cd7f6;
-  --color-tertiary-container: #009eb9;
-  --color-on-tertiary: #003640;
+  --color-tertiary: #ffa940;
+  --color-tertiary-container: #d46b08;
+  --color-on-tertiary: #ffffff;
   
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-display: 'Inter', system-ui, sans-serif;
@@ -45,7 +45,7 @@
 }
 
 html, body {
-  background-color: #0b1326;
+  background-color: #050505;
   color: #dae2fd;
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
@@ -63,9 +63,9 @@ html, body {
 }
 
 .glass-card:hover {
-  border-color: rgba(192, 193, 255, 0.35);
+  border-color: rgba(239, 47, 41, 0.35);
   background: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(192, 193, 255, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(239, 47, 41, 0.1);
 }
 
 /* Glass Card Stroke */
@@ -78,7 +78,7 @@ html, body {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(192, 193, 255, 0.2) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(239, 47, 41, 0.2) 100%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -100,14 +100,14 @@ html, body {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #060e20;
+  background: #000000;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(192, 193, 255, 0.15);
+  background: rgba(239, 47, 41, 0.15);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(192, 193, 255, 0.35);
+  background: rgba(239, 47, 41, 0.35);
 }
 
 /* Premium scroll-triggered reveal animations */

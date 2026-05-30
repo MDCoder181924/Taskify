@@ -2,7 +2,7 @@ import { Send, Globe, Mail, ChevronRight } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="relative mt-24 border-t border-white/5 bg-[#060e20]/60 backdrop-blur-3xl z-10 overflow-hidden">
+    <footer className="relative mt-24 border-t border-white/5 bg-[#000000]/60 backdrop-blur-3xl z-10 overflow-hidden">
       
       {/* Light leak glow */}
       <div className="absolute bottom-0 right-1/4 w-[30rem] h-[30rem] rounded-full bg-primary/5 blur-[120px] pointer-events-none z-[-1]" />
@@ -11,7 +11,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 pt-20 pb-16">
         
         <div className="reveal reveal-fade-up glass-card p-8 md:p-16 rounded-[3.5rem] border-white/10 relative overflow-hidden bg-gradient-to-br from-surface-low/80 to-surface-highest/80 mb-20">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(192,193,255,0.06),transparent_70%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(239,47,41,0.06),transparent_70%)]" />
           
           <div className="relative z-10 flex flex-col items-center text-center gap-8 max-w-4xl mx-auto">
             <h2 className="font-display font-extrabold text-3.5xl md:text-5xl text-white tracking-tight leading-tight">
@@ -30,7 +30,7 @@ export default function Footer() {
               />
               <button 
                 type="submit"
-                className="bg-gradient-to-r from-primary to-secondary text-[#0b1326] px-8 py-4 rounded-xl font-sans font-bold text-sm hover:scale-105 active:scale-95 transition-transform flex items-center justify-center gap-2 shadow-xl shadow-primary/10 whitespace-nowrap"
+                className="bg-gradient-to-r from-primary to-secondary text-[#050505] px-8 py-4 rounded-xl font-sans font-bold text-sm hover:scale-105 active:scale-95 transition-transform flex items-center justify-center gap-2 shadow-xl shadow-primary/10 whitespace-nowrap"
               >
                 Claim My Access
                 <ChevronRight className="w-4 h-4" />

@@ -27,12 +27,12 @@ export default function ThreeBackground() {
     const positions = new Float32Array(particlesCount * 3);
     const colors = new Float32Array(particlesCount * 3);
 
-    // Color choices corresponding to primary (c0c1ff), secondary (fbabff), and tertiary (4cd7f6)
+    // Color choices corresponding to primary (#EF2F29), secondary (#ff6b4a), and tertiary (#ffa940)
     const availableColors = [
-      new THREE.Color('#c0c1ff'),
-      new THREE.Color('#fbabff'),
-      new THREE.Color('#4cd7f6'),
-      new THREE.Color('#8083ff'),
+      new THREE.Color('#EF2F29'),
+      new THREE.Color('#ff6b4a'),
+      new THREE.Color('#ffa940'),
+      new THREE.Color('#b21b16'),
     ];
 
     for (let i = 0; i < particlesCount * 3; i += 3) {
@@ -139,7 +139,7 @@ export default function ThreeBackground() {
   return (
     <div 
       ref={containerRef} 
-      className="fixed inset-0 pointer-events-none z-[-10] bg-[#0b1326]"
+      className="fixed inset-0 pointer-events-none z-[-10] bg-[#050505]"
     />
   );
 }

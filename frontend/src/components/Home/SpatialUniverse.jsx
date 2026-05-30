@@ -31,11 +31,11 @@ export default function SpatialUniverse() {
 
     // Node data representing task items
     const nodesData = [
-      { id: 1, name: 'Aether Core', val: 3.5, color: '#c0c1ff', x: -12, y: 8, z: 2 },
-      { id: 2, name: 'Quantum Testing', val: 2.8, color: '#fbabff', x: 12, y: -6, z: -4 },
-      { id: 3, name: 'Obsidian Database', val: 4.0, color: '#4cd7f6', x: 2, y: -10, z: 8 },
-      { id: 4, name: 'Nexus Engine', val: 3.0, color: '#8083ff', x: -8, y: -4, z: -10 },
-      { id: 5, name: 'Lumina Interface', val: 2.5, color: '#ae05c6', x: 8, y: 10, z: 6 },
+      { id: 1, name: 'Aether Core', val: 3.5, color: '#EF2F29', x: -12, y: 8, z: 2 },
+      { id: 2, name: 'Quantum Testing', val: 2.8, color: '#ff6b4a', x: 12, y: -6, z: -4 },
+      { id: 3, name: 'Obsidian Database', val: 4.0, color: '#ffa940', x: 2, y: -10, z: 8 },
+      { id: 4, name: 'Nexus Engine', val: 3.0, color: '#b21b16', x: -8, y: -4, z: -10 },
+      { id: 5, name: 'Lumina Interface', val: 2.5, color: '#c93b1d', x: 8, y: 10, z: 6 },
     ];
 
     const spheres = [];
@@ -81,7 +81,7 @@ export default function SpatialUniverse() {
 
     // Create connection lines between nodes representing task dependencies
     const lineMaterial = new THREE.LineBasicMaterial({
-      color: 0xc0c1ff,
+      color: 0xef2f29,
       transparent: true,
       opacity: 0.25,
       blending: THREE.AdditiveBlending,
@@ -110,7 +110,7 @@ export default function SpatialUniverse() {
     dustGeometry.setAttribute('position', new THREE.BufferAttribute(dustPositions, 3));
     const dustMaterial = new THREE.PointsMaterial({
       size: 0.4,
-      color: 0x4cd7f6,
+      color: 0xffa940,
       transparent: true,
       opacity: 0.5,
     });
@@ -225,7 +225,7 @@ export default function SpatialUniverse() {
           </p>
 
           <div className="flex flex-wrap gap-4 pt-2">
-            <button className="bg-gradient-to-r from-primary to-secondary text-[#0b1326] px-7 py-3.5 rounded-xl font-sans font-bold text-sm hover:scale-105 active:scale-95 transition-transform shadow-lg shadow-primary/10">
+            <button className="bg-gradient-to-r from-primary to-secondary text-[#050505] px-7 py-3.5 rounded-xl font-sans font-bold text-sm hover:scale-105 active:scale-95 transition-transform shadow-lg shadow-primary/10">
               Explore Spatial Mode
             </button>
             <button className="text-white border border-white/10 hover:border-white/25 hover:bg-white/5 px-7 py-3.5 rounded-xl font-sans font-bold text-sm transition-all duration-300">

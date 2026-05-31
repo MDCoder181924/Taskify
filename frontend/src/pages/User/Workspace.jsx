@@ -1,15 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { Plus, Menu, X, Terminal, Brain, CheckSquare, BarChart2 } from 'lucide-react';
-import Sidebar from '../../components/User/Dashboard/Sidebar';
-import Header from '../../components/User/Dashboard/Header';
-import StatsGrid from '../../components/User/Dashboard/StatsGrid';
-import VelocityChart from '../../components/User/Dashboard/VelocityChart';
-import Timeline from '../../components/User/Dashboard/Timeline';
-import AIInsights from '../../components/User/Dashboard/AIInsights';
-import CalendarPreview from '../../components/User/Dashboard/CalendarPreview';
-import RecentActivity from '../../components/User/Dashboard/RecentActivity';
+import Sidebar from '../../components/User/Workspace/Sidebar';
+import Header from '../../components/User/Workspace/Header';
+import DashbordView from '../../components/User/Workspace/Dashboard/DashboardView'
+import TasksView from '../../components/User/Workspace/Tasks/TasksView'
+import AssistantView from '../../components/User/Workspace/Assistant/AssistantView'
+import AnalyticsView from '../../components/User/Workspace/Analytics/AnalyticsView';
 
-export default function Dashboard({ onNavigate }) {
+export default function Workspace({ onNavigate }) {
   const [currentTab, setCurrentTab] = useState('dashboard');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const blobsRef = useRef([]);
@@ -28,7 +26,7 @@ export default function Dashboard({ onNavigate }) {
           </div>
           <span className="font-display font-extrabold text-lg text-white">Taskify</span>
         </div>
-        <button 
+        <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           className="text-white hover:text-[#ffa940] transition-colors p-2"
         >
@@ -36,37 +34,38 @@ export default function Dashboard({ onNavigate }) {
         </button>
       </div>
 
+
       {/* Mobile Drawer menu */}
       {isMobileMenuOpen && (
         <div className="md:hidden fixed inset-0 bg-[#050505]/95 backdrop-blur-2xl z-40 flex flex-col p-8 pt-24 animate-fade-in gap-6">
-          <button 
+          <button
             onClick={() => { setCurrentTab('dashboard'); setIsMobileMenuOpen(false); }}
             className={`flex items-center gap-3 py-3 px-4 rounded-xl text-lg font-bold ${currentTab === 'dashboard' ? 'bg-[#b21b16]/20 text-[#ffa940]' : 'text-white'}`}
           >
             <Terminal className="w-5 h-5" /> Dashboard
           </button>
-          <button 
+          <button
             onClick={() => { setCurrentTab('tasks'); setIsMobileMenuOpen(false); }}
             className={`flex items-center gap-3 py-3 px-4 rounded-xl text-lg font-bold ${currentTab === 'tasks' ? 'bg-[#b21b16]/20 text-[#ffa940]' : 'text-white'}`}
           >
             <CheckSquare className="w-5 h-5" /> My Tasks
           </button>
-          <button 
+          <button
             onClick={() => { setCurrentTab('assistant'); setIsMobileMenuOpen(false); }}
             className={`flex items-center gap-3 py-3 px-4 rounded-xl text-lg font-bold ${currentTab === 'assistant' ? 'bg-[#b21b16]/20 text-[#ffa940]' : 'text-white'}`}
           >
             <Brain className="w-5 h-5" /> AI Assistant
           </button>
-          <button 
+          <button
             onClick={() => { setCurrentTab('analytics'); setIsMobileMenuOpen(false); }}
             className={`flex items-center gap-3 py-3 px-4 rounded-xl text-lg font-bold ${currentTab === 'analytics' ? 'bg-[#b21b16]/20 text-[#ffa940]' : 'text-white'}`}
           >
             <BarChart2 className="w-5 h-5" /> Analytics
           </button>
-          
+
           <div className="h-[1px] bg-white/10 my-4" />
-          
-          <button 
+
+          <button
             onClick={() => { setIsMobileMenuOpen(false); onNavigate('landing'); }}
             className="w-full py-3.5 bg-gradient-to-r from-[#EF2F29] to-[#ff6b4a] text-[#ffffff] rounded-xl font-bold uppercase text-xs tracking-wider"
           >
@@ -80,32 +79,15 @@ export default function Dashboard({ onNavigate }) {
 
       {/* Main content grid viewports */}
       <main className="pt-24 md:pt-20 px-6 md:pl-[280px] md:pr-12 min-h-screen relative z-10">
-        
+
         {currentTab === 'dashboard' ? (
-          <>
-            {/* Bento header statistic blocks */}
-            <StatsGrid />
-
-            {/* Middle Dashboard layout section */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-              
-              {/* Left Column: Velocity charts & productivity logs */}
-              <div className="lg:col-span-8 flex flex-col gap-6">
-                <VelocityChart />
-                <Timeline />
-              </div>
-
-              {/* Right Column: AI Suggestion systems & Calendars */}
-              <div className="lg:col-span-4 flex flex-col gap-6">
-                <AIInsights />
-                <CalendarPreview />
-              </div>
-
-            </div>
-
-            {/* Bottom section: recent collaborative feeds */}
-            <RecentActivity />
-          </>
+          <DashbordView />
+        ) : currentTab === 'tasks' ? (
+          <TasksView />
+        ) : currentTab === 'assistant' ? (
+          <AssistantView />
+        ) : currentTab === 'analytics' ? (
+          <AnalyticsView />
         ) : (
           <div className="flex flex-col items-center justify-center min-h-[70vh] text-center p-6 animate-fade-in">
             <div className="relative mb-6">
@@ -120,7 +102,7 @@ export default function Dashboard({ onNavigate }) {
             <p className="text-[#c7c4d7] text-sm mt-2 max-w-sm leading-relaxed">
               Taskify's AI agents are compiling requirements for this dynamic workspace. Check back shortly for updates.
             </p>
-            <button 
+            <button
               onClick={() => setCurrentTab('dashboard')}
               className="mt-6 px-6 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-white font-bold text-xs uppercase tracking-widest border border-white/10 hover:border-white/20 transition-all cursor-pointer"
             >
@@ -132,7 +114,7 @@ export default function Dashboard({ onNavigate }) {
       </main>
 
       {/* Floating Action Button (FAB) for speedy task adding */}
-      <button 
+      <button
         className="fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-tr from-[#EF2F29] to-[#ff6b4a] rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-40 group cursor-pointer border border-white/15"
         onClick={() => alert('Coordinating Quantum Core: Add New Task...')}
       >

@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import {Link , useNavigate} from "react-router-dom";
 import api from '../../api/axios'
+import { useUser } from '../../context/UserContext';
 
 export default function AuthLogin({ onNavigate }) {
   const backdropRef = useRef(null);
@@ -37,6 +38,8 @@ export default function AuthLogin({ onNavigate }) {
         userEmail :email ,
         userPassword:password, 
       })
+      const {setUser} = useUser();
+      setUser(res.data.user);
       naviget("/dashboard")
     }catch(error){
       console.log(error);

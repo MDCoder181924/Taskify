@@ -254,10 +254,11 @@ export default function TasksView() {
               <div className="flex flex-col gap-1.5">
                 <label className="font-mono text-[9px] text-[#c7c4d7]/60 uppercase tracking-widest px-1">Due Date</label>
                 <input 
-                  type="text"
+                  type="date"
+                  min={new Date().toISOString().split("T")[0]}
+                  onFocus={(e) => e.target.showPicker?.()}
                   value={newDueDate}
                   onChange={(e) => setNewDueDate(e.target.value)}
-                  placeholder="e.g. Oct 28"
                   className="w-full bg-[#030303]/60 border border-white/10 rounded-xl px-4 py-3 text-xs focus:border-[#EF2F29] focus:ring-0 outline-none transition-all placeholder-[#908fa0]/25 text-white"
                   required
                 />

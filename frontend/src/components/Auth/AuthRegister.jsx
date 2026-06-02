@@ -38,17 +38,23 @@ export default function AuthRegister({ onNavigate }) {
 
   const registerUser = async (e) => {
     e.preventDefault();
+
+    if (password !== confirmPassword) {
+      alert("Password and confirm password do not match");
+      return;
+    }
+
     try {
-      const res = await api.post("/auth/user/register", {
+      await api.post("/auth/user/register", {
         fullName: fullName,
         userName: username,
         userEmail: email,
         userPassword: password
       })
-      navigete("/dashboard")
+      navigate("/dashboard")
     } catch (error) {
       console.log(error.response?.data);
-      alert("pleas add correct data")
+      alert(error.response?.data?.message || "Please add correct data")
     }
   }
 

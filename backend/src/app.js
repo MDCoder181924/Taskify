@@ -6,6 +6,8 @@ import cors from 'cors'
 import userRoutes from './routes/Auth/user.route.js';
 import adminRoutes from './routes/Auth/admin.route.js';
 import passport from './config/passport.js'
+import userTaskRoutes from './routes/User/tasks.router.js';
+import userRouter from './routes/User/user.router.js';
 
 const app = express();
 app.use(helmet())
@@ -19,5 +21,12 @@ app.use(passport.initialize());
 
 app.use('/auth/user' , userRoutes);
 app.use('/auth/admin' , adminRoutes);
+
+app.use('/user/task' , userTaskRoutes);
+app.use('/user' , userRouter);
+
+app.get("/", (req, res) => {
+    res.send("Welcome to Taskify API");
+});
 
 export default app;

@@ -10,7 +10,7 @@ export const UserProvider = ({ children }) => {
     useEffect(() => {
         const getMe = async () => {
             try {
-                const res = await axios.get(
+                const res = await api.get(
                     "/user/me",
                     {
                         withCredentials: true,

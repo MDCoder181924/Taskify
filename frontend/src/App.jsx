@@ -1,15 +1,18 @@
 import React from 'react'
 import AppRoutes from './routes/AppRoutes'
 import { BrowserRouter } from 'react-router-dom'
-import UserProvider from './context/UserContext'
+import { UserProvider } from './context/UserContext'
+import { TaskProvider } from './context/TaskContext'
 
 const App = () => {
   return (
-    <UserProvider>
     <BrowserRouter>
-      <AppRoutes />
+      <UserProvider>
+        <TaskProvider>
+          <AppRoutes />
+        </TaskProvider>
+      </UserProvider>
     </BrowserRouter>
-    </UserProvider>
   )
 }
 

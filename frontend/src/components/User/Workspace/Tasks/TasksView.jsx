@@ -1,10 +1,18 @@
-import { useState } from 'react';
+import { useState , useEffect } from 'react';
 import TasksHeader from './TasksHeader';
 import FiltersBar from './FiltersBar';
 import KanbanBoard from './KanbanBoard';
 import TasksFooter from './TasksFooter';
+import api from "../../../../api/axios";
+import { useTask } from '../../../../context/TaskContext';
 
 export default function TasksView() {
+  const { tasks, setTasks , fetchTasks} = useTask();
+
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
   const [viewMode, setViewMode] = useState('kanban'); // 'kanban' or 'list'
   const [searchQuery, setSearchQuery] = useState('');
   const [priorityFilter, setPriorityFilter] = useState('All');
@@ -19,86 +27,37 @@ export default function TasksView() {
   const [newCategory, setNewCategory] = useState('');
   const [newDueDate, setNewDueDate] = useState('');
 
-  // Hardcoded static tasks list matching mock specification with assignee images
-  const [tasks, setTasks] = useState([
-    {
-      id: 'task-1',
-      title: 'Neural Interface Wireframes',
-      description: 'Define the core interaction models for the synaptic feedback loops in the MVP dashboard.',
-      priority: 'High',
-      progress: 0,
-      status: 'in_progress', // Default to in_progress since backlog is removed
-      category: 'Synaptic',
-      dueDate: 'Oct 24',
-      assignees: [
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuCf_adT4WqUN-Sv-ma_hbIhZx82TRXTvwVuaggZJKYwvvxaD1kZv2ajaOEmiIhee2n4F8Nlstr-WSl0buPg6Cy7k-y6qMhMxPyPebx2vN7n_MQ0Esn9E1zNXBfbPxDoRTtcag8YKhGYXRxn0LF5gy04w7JnyeC5c4_OokYaigCgbSxzQVwuHkPok2vvIGBzl03QE8LEM7wZpGX5R4uNEHICj3fk6rVuFJ6A8dSrC04TUdLEGmfZqjadzyM52NQyuh9TvYWr-r85Ug'
-      ]
-    },
-    {
-      id: 'task-2',
-      title: 'AI Training Module Redesign',
-      description: 'Visualizing the latent space during real-time model inference updates.',
-      priority: 'Medium',
-      progress: 65,
-      status: 'in_progress',
-      category: 'Model Inference',
-      comments: 12,
-      assignees: [
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuCmlILr7rjcCT4PjSe4nNwB68VkoIaoR8mjO-FzLzmL5Wvs8UP9sDsH3SehCh130U_K5WiK8nG_oOlj_TbxsWjA9elFYhnHr_kVxwcTHN9_9-6061oFWEgyoWP9LA9szDkqxTUFUAgUOmxE82wGNvRBtcydYyAn0UzXC-DcutV5jWn6k_yq2tFLZI_iSMDFBHIzJoTh95Q4I_TAmZ3-kT9YHpWqPkLLEeO3e3YX8XRBcsLGSwx3lUMUuf8q_JJ6CMLSHNzzX61y3w',
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuDNi-C3OZZANcnzqh6diFbghFmbczyoCkuk61mUheBIBZDSZZs8ubxGnE9ciizxpjVdHDf38kVbwo17teL_w7R7sbQ2gu0lyqCzBKLjCY1st7Ks42KpR3c1KNpRQUNwqDNhhYX07HqZTWcE7bf1AF5WtRbYZlK3rwPNlBryf4B7wAFgTzVmLYEGOT6F78vgnTk8nPZPBX5O6qYLqWREgyjSLVaH3aXQWGxiWusbUV8I53Zw2xC9RyLmH9fBsH-8q1ySRPJFJCKzyw'
-      ]
-    },
-    {
-      id: 'task-3',
-      title: 'Quantum Crypto Integration',
-      description: 'Final security audit for the post-quantum encryption layer implementation.',
-      priority: 'Low',
-      progress: 90,
-      status: 'review',
-      category: 'Security',
-      attachments: 3,
-      assignees: [
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuCLgPkWL_6iYAe_Q3n9mfvHu4Lszv3TahVRPsGeILk1TzRMs---wgJ_9ZTgqYOXBv8Gh6dck5McxMPl22ZfVlEHsNbAq8aOOmMMBd-aGZK8Iq6dDXdkcMtW5SF32uwBTl1yGmBlPiqiDzkOUUsLBI77J8w3yoR7oAdkATduYuQpEy9bO3z1f6zQdB5KGm4s15milf4vro8A2bf90FutfluvEvDk5k7Rsw26zt5jQUfEMKJUGa_z1vPEuq_3e4xqH9_Bdi84p2Dq5w'
-      ]
-    },
-    {
-      id: 'task-4',
-      title: 'Holographic Logo Render',
-      description: 'Exporting 8K assets for the 2024 launch event keynote visuals.',
-      priority: 'Low',
-      progress: 100,
-      status: 'completed',
-      category: 'Launch',
-      assignees: [
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuBF356ka3X-LiC0PJA4Jh823Q97XSFx6PQMWy-W18MUSozDRy5tjZUVAYAiA_-Vm8W3fmwQ5V3TGBiMaaT6SD6CSiRIu_kXWm6yCcEhiewC_FTqqYhVh17HAv7HuaEkKVgffga3MEJDwKLOeyOTalY8HUAsvKzvxBnbVs30rWW6w0r4wL0_cn5ZDFHuWBWUxFhy3AtCwnqbKBLn9u7fpwEvdpq6ksBV-51rqOi0MSlsTxSoNLAjUrgFaBrVW2ZqwL97nFGot9Tjdw'
-      ]
-    }
-  ]);
-
   const handleClearFilters = () => {
     setPriorityFilter('All');
     setCategoryFilter('All');
   };
 
-  const handleAddTaskSubmit = (e) => {
+  const complitTask = async (taskId) =>{
+    try{
+       await api.post("/user/task/completeTask",{
+        taskId
+      })
+      await fetchTasks();
+    }catch(error){
+      console.error("Error completing task:", error);
+    }
+  }
+
+  const handleAddTaskSubmit = async (e) => {
     e.preventDefault();
-    const newTask = {
-      id: `task-${Date.now()}`,
-      title: newTitle,
-      description: newDesc,
-      priority: newPriority,
-      progress: 0,
-      status: 'in_progress', // Enforce task directly lands inside in_progress lane
-      category: newCategory,
-      dueDate: newDueDate,
-      comments: 0,
-      attachments: 0,
-      assignees: [
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuCf_adT4WqUN-Sv-ma_hbIhZx82TRXTvwVuaggZJKYwvvxaD1kZv2ajaOEmiIhee2n4F8Nlstr-WSl0buPg6Cy7k-y6qMhMxPyPebx2vN7n_MQ0Esn9E1zNXBfbPxDoRTtcag8YKhGYXRxn0LF5gy04w7JnyeC5c4_OokYaigCgbSxzQVwuHkPok2vvIGBzl03QE8LEM7wZpGX5R4uNEHICj3fk6rVuFJ6A8dSrC04TUdLEGmfZqjadzyM52NQyuh9TvYWr-r85Ug'
-      ]
-    };
-    setTasks(prev => [...prev, newTask]);
-    // Reset modal input parameters
+    try{
+      const res = await api.post("/user/task/addTask",{
+        taskTitle: newTitle,
+        taskDescription: newDesc,
+        taskPriority: newPriority,
+        taskCategory: newCategory,
+        taskDueDate: newDueDate
+      })
+      await fetchTasks();
+    }
+    catch(error){
+      console.error("Error adding task:", error);
+    }
     setNewTitle('');
     setNewDesc('');
     setNewPriority('Medium');
@@ -108,7 +67,17 @@ export default function TasksView() {
   };
 
   // Perform multi-criteria filter computation
-  const filteredTasks = tasks.filter(task => {
+  const filteredTasks = tasks.map(task => ({
+    id: task._id,
+    title: task.taskTitle,
+    description: task.taskDescription,
+    priority: task.taskPriority,
+    category: task.taskCategory,
+    dueDate: task.taskDueDate,
+    status: task.taskStatus === 'completed' ? 'completed' : task.taskStatus === 'in_progress' ? 'in_progress' : 'in_progress',
+    progress: task.taskStatus === 'Completed' ? 100 : 45,
+    assignees: [],
+  })).filter(task => {
     const matchesSearch = task.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
                           task.description.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesPriority = priorityFilter === 'All' || task.priority === priorityFilter;
@@ -133,9 +102,9 @@ export default function TasksView() {
       {/* Sleek Glassmorphic Status Sub-Tabs */}
       <div className="flex border-b border-white/5 pb-2 mb-6 gap-2 w-full mt-4 select-none">
         {[
-          { id: 'in_progress', label: 'In Progress', dotColor: 'bg-[#EF2F29] animate-pulse', count: tasks.filter(t => t.status === 'in_progress').length },
-          { id: 'review', label: 'In Review', dotColor: 'bg-[#ff6b66]', count: tasks.filter(t => t.status === 'review').length },
-          { id: 'completed', label: 'Completed', dotColor: 'bg-green-400', count: tasks.filter(t => t.status === 'completed').length }
+          { id: 'in_progress', label: 'In Progress', dotColor: 'bg-[#EF2F29] animate-pulse', count: filteredTasks.filter(t => t.status === 'in_progress').length },
+          { id: 'review', label: 'In Review', dotColor: 'bg-[#ff6b66]', count: filteredTasks.filter(t => t.status === 'review').length },
+          { id: 'completed', label: 'Completed', dotColor: 'bg-green-400', count: filteredTasks.filter(t => t.status === 'completed').length }
         ].map(tab => (
           <button
             key={tab.id}
@@ -170,6 +139,7 @@ export default function TasksView() {
           tasks={filteredTasks}
           setTasks={setTasks}
           activeStatusTab={activeStatusTab}
+          onCompleteTask={complitTask}
         />
       </div>
 

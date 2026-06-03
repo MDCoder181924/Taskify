@@ -32,14 +32,14 @@ export default function AuthLogin({ onNavigate }) {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   const naviget = useNavigate();
+  const {setUser} = useUser();
   const loginUser = async() =>{
     try{
       const res = await api.post("/auth/user/login" , {
         userEmail :email ,
         userPassword:password, 
       })
-      const {setUser} = useUser();
-      setUser(res.data.user);
+      setUser(res.data.existingUser);
       naviget("/dashboard")
     }catch(error){
       console.log(error);

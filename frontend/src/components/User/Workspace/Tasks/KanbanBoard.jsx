@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Calendar, MessageSquare, Paperclip, CheckSquare, Edit, ArrowRight, ArrowLeft, Check } from 'lucide-react';
 
-export default function KanbanBoard({ viewMode, tasks, setTasks, activeStatusTab }) {
+export default function KanbanBoard({ viewMode, tasks, setTasks, activeStatusTab , onCompleteTask}) {
   const containerRef = useRef(null);
 
   // Click-to-move status promotion action
@@ -103,9 +103,7 @@ export default function KanbanBoard({ viewMode, tasks, setTasks, activeStatusTab
           <button 
             onClick={(e) => {
               e.stopPropagation();
-              setTasks(prevTasks => 
-                prevTasks.map(t => t.id === task.id ? { ...t, status: 'completed', progress: 100 } : t)
-              );
+              onCompleteTask(task.id);
             }}
             className="w-full mb-4 py-2 rounded-xl bg-green-500/10 border border-green-500/30 text-green-400 font-sans font-bold text-xs uppercase tracking-wider hover:bg-green-500 hover:text-black transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-lg shadow-green-500/5 active:scale-95"
           >
@@ -186,9 +184,7 @@ export default function KanbanBoard({ viewMode, tasks, setTasks, activeStatusTab
                 {!isCompleted && (
                   <button 
                     onClick={() => {
-                      setTasks(prevTasks => 
-                        prevTasks.map(t => t.id === task.id ? { ...t, status: 'completed', progress: 100 } : t)
-                      );
+                      onCompleteTask(task.id);
                     }}
                     className="px-4 py-2 bg-green-500/10 border border-green-500/30 hover:bg-green-500 hover:text-black text-green-400 font-sans font-bold text-xs uppercase tracking-wider rounded-xl cursor-pointer shadow-md active:scale-95 transition-all flex items-center gap-1.5"
                   >

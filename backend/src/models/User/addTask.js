@@ -23,8 +23,8 @@ const addTask = new mongoose.Schema({
     },
     taskStatus: {
       type: String,
-      enum: ["Pending", "In Progress", "Completed"],
-      default: "Pending",
+      enum: ["in_progress", "review", "completed"],
+      default: "in_progress",
     },
     taskCategory : {
         type : String ,

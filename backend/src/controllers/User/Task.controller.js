@@ -7,7 +7,7 @@ export const addTask = async (req, res) => {
             return res.status(400).json({ message: "All fields are required" });
         }
         const Task = await task.create({
-            userId: req.user.id,
+            userId: req.user.userId,
             taskTitle,
             taskDescription,
             taskPriority,
@@ -28,7 +28,7 @@ export const addTask = async (req, res) => {
 
 export const fetAllTasks = async (req , res)=>{
     try{
-        const tasks = await task.find({userId:req.user.id})
+        const tasks = await task.find({userId:req.user.userId})
 
         res.status(200).json({
             success:true,
@@ -38,6 +38,36 @@ export const fetAllTasks = async (req , res)=>{
         res.status(400).json({
             success:false,
             message:error.message
+        })
+    }
+}
+
+export const complitTask = async ( req , res) =>{
+    try{
+        const taskId = req.body.taskId;
+        if(!taskId){
+            return res.status(400).json({
+                success:false,
+                message:"Task Id is required"
+            })
+        }
+        const Task = await task.findOne({_id:taskId , userId:req.user.userId});
+        if(!Task){
+            return res.status(404).json({
+                success:false,
+                message:"Task not found"
+            })
+        }
+        Task.taskStatus = "completed";
+        await Task.save();
+        return res.status(200).json({
+            success:true,
+            message:"Task marked as complete"
+        })
+    }catch(error){
+        res.status(400).json({
+            success:false,
+            message : error.message
         })
     }
 }

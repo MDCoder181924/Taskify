@@ -4,6 +4,13 @@ import { authMiddleware  , checkUserExist} from "../../middleware/Auth/Auth.midd
 import { generateAccessToken, generateRefreshToken } from "../../services/sesstionService.js";
 import passport from '../../config/passport.js'
 
+const isProduction = process.env.NODE_ENV === 'production';
+const cookieOptions = {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "strict",
+};
+
 const userRoutes = express.Router();
 
 userRoutes.post("/register", checkUserExist, userRagister);
@@ -26,15 +33,11 @@ userRoutes.get(`/google/callback` ,passport.authenticate("google" , {session:fal
     const refreshtoken = generateRefreshToken(req.user);
 
     res.cookie("accessToken", accesstoken, {
-        httpOnly: true,
-        secure: false,
-        sameSite: "strict",
+        ...cookieOptions,
     });
 
     res.cookie("refreshToken", refreshtoken, {
-        httpOnly: true,
-        secure: false,
-        sameSite: "strict",
+        ...cookieOptions,
     });
     res.redirect(`${process.env.CLIENT_URL}/dashboard`);
 })
@@ -46,14 +49,10 @@ userRoutes.get('/github/callback', passport.authenticate("github", { session: fa
     const refreshtoken = generateRefreshToken(req.user);
 
     res.cookie("accessToken", accesstoken, {
-        httpOnly: true,
-        secure: false,
-        sameSite: "strict",
+        ...cookieOptions,
     });
     res.cookie("refreshToken", refreshtoken, {
-        httpOnly: true,
-        secure: false,
-        sameSite: "strict",
+        ...cookieOptions,
     });
     res.redirect(`${process.env.CLIENT_URL}/dashboard`);
 });

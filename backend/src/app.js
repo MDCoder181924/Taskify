@@ -12,7 +12,7 @@ import userRouter from './routes/User/user.router.js';
 const app = express();
 app.use(helmet())
 app.use(cors({
-    origin:process.env.CLIENT_URL,
+    origin: process.env.CLIENT_URL?.replace(/\/+$/, ''),
     credentials: true
 }))
 app.use(express.json());

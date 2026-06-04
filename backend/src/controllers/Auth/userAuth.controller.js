@@ -3,6 +3,13 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import {generateAccessToken ,generateRefreshToken } from '../../services/sesstionService.js'
 
+const isProduction = process.env.NODE_ENV === 'production';
+const cookieOptions = {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "strict",
+};
+
 export const userRagister = async (req, res, next) => {
     try {
         const {fullName, userName, userEmail, userPassword } = req.body;
@@ -31,16 +38,12 @@ export const userRagister = async (req, res, next) => {
         await newUser.save();
 
         res.cookie("accessToken" , accesstoken , {
-            httpOnly:true,
-            secure:false,
-            sameSite:"strict",
+            ...cookieOptions,
             maxAge : 15*60 *1000,
         })
 
         res.cookie("refreshToken" , refreshtoken , {
-            httpOnly:true,
-            secure:false,
-            sameSite:"strict",
+            ...cookieOptions,
             maxAge:7*24*60*60*1000,
         })
 
@@ -104,16 +107,12 @@ export const userLogin = async (req, res, next) => {
         await existingUser.save();
 
         res.cookie("accessToken" ,accesstoken, {
-            httpOnly:true,
-            secure:false,
-            sameSite: "strict",
+            ...cookieOptions,
             maxAge : 15*60*1000,
         })
 
         res.cookie("refreshToken" , refreshtoken , {
-            httpOnly : true,
-            secure : false,
-            sameSite:"strict",
+            ...cookieOptions,
             maxAge : 7*24*60*60*1000,
         })
 
@@ -197,9 +196,7 @@ export const refreshAccessToken = async ( req , res) => {
         const newAccessToken = generateAccessToken(existingUser);
 
         res.cookie("accessToken" , newAccessToken ,{
-            httpOnly: true,
-            secure:false,
-            sameSite:"strict",
+            ...cookieOptions,
             maxAge:15*60*1000,
         })
 

@@ -7,7 +7,7 @@ passport.use(
     new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: "http://localhost:3000/auth/user/google/callback"
+        callbackURL: "https://taskify-b6n9.onrender.com/auth/user/google/callback"
     },
         async (accessToken, refreshToken, profile, done) => {
             try {
@@ -36,7 +36,7 @@ passport.use(
     new GitHubStrategy({
         clientID: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
-        callbackURL: "http://localhost:3000/auth/user/github/callback",
+        callbackURL: "https://taskify-b6n9.onrender.com/auth/user/github/callback",
     }, async (accessToken, refreshToken, profile, done) => {
         try {
             const email = profile.emails?.[0]?.value;

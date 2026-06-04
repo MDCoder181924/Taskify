@@ -458,7 +458,7 @@ export default function AuthRegister({ onNavigate }) {
           <div className="grid grid-cols-2 gap-4">
             <button
               onClick={() => {
-                window.location.href = "http://localhost:3000/auth/user/google";
+                window.location.href = "https://taskify-b6n9.onrender.com/auth/user/google";
               }}
               type="button"
               className="flex items-center justify-center gap-2 py-3 rounded-2xl border border-white/10 bg-white/3 hover:bg-white/5 transition-all text-xs font-sans font-bold text-white hover:scale-102 active:scale-98 cursor-pointer shadow-sm"
@@ -470,7 +470,7 @@ export default function AuthRegister({ onNavigate }) {
             </button>
             <button
               onClick={() => {
-                window.location.href = "http://localhost:3000/auth/user/github";
+                window.location.href = "https://taskify-b6n9.onrender.com/auth/user/github";
               }}
               type="button"
               className="flex items-center justify-center gap-2 py-3 border border-white/10 rounded-2xl bg-white/3 hover:bg-white/5 transition-all text-xs font-sans font-bold text-white hover:scale-102 active:scale-98 cursor-pointer shadow-sm"

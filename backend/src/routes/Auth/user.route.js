@@ -8,7 +8,7 @@ const userRoutes = express.Router();
 
 userRoutes.post("/register", checkUserExist, userRagister);
 userRoutes.post("/login", userLogin);
-userRoutes.post("/logout", authMiddleware, userLogout);
+userRoutes.post("/logout", userLogout);
 userRoutes.post("/refresh-token", refreshAccessToken);
 
 userRoutes.get('/profile' , authMiddleware , (req , res)=>{

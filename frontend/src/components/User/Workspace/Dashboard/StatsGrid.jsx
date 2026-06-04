@@ -5,6 +5,7 @@ export default function StatsGrid({ tasks }) {
   const totalTasks = tasks.length || 0;
   const completedTasks = tasks.filter((task)=> task.taskStatus==="completed").length;
   const pendingTasks = tasks.filter((task) => task.taskStatus !== "completed").length;
+  const completionRate = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
   
   const stats = [
     {
@@ -80,7 +81,7 @@ export default function StatsGrid({ tasks }) {
         <div className="mt-4">
           <p className="text-[#c7c4d7] text-xs font-mono uppercase tracking-widest">Productivity Score</p>
           <div className="flex items-baseline gap-2 mt-1">
-            <p className="text-3xl font-extrabold text-[#ffa940] font-display tracking-tight">94%</p>
+            <p className="text-3xl font-extrabold text-[#ffa940] font-display tracking-tight">{completionRate}%</p>
             <span className="text-[10px] text-[#c7c4d7] font-sans font-medium">Top 1%</span>
           </div>
         </div>

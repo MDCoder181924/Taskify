@@ -165,7 +165,7 @@ export default function KanbanBoard({ viewMode, tasks, setTasks, activeStatusTab
                 setNewTaskDescription(task.description);
                 setNewTaskPriority(task.priority);
                 setNewTaskCategory(task.category);
-                setNewTaskDueDate(task.dueDate);
+                setNewTaskDueDate(task.dueDate ? task.dueDate.split("T")[0] : "");
               }}
             >
               <Edit className="w-3.5 h-3.5" />
@@ -277,6 +277,7 @@ export default function KanbanBoard({ viewMode, tasks, setTasks, activeStatusTab
                   </h4>
                   <p className="text-xs text-[#c7c4d7]/70 font-sans max-w-xl leading-relaxed">{task.description}</p>
                 </div>
+                
 
                 <div className="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
                   <div className="flex items-center gap-2 text-xs font-mono text-[#c7c4d7]">

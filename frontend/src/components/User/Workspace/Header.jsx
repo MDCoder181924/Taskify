@@ -1,6 +1,6 @@
 import { Search, Bell, Settings } from 'lucide-react';
 
-export default function Header() {
+export default function Header({user}) {
   return (
     <header className="fixed top-0 w-full z-30 flex justify-between items-center px-6 md:px-12 h-16 bg-[#050505]/80 backdrop-blur-md border-b border-white/10 md:pl-[280px]">
       {/* Search Input Bar */}
@@ -42,14 +42,14 @@ export default function Header() {
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-full overflow-hidden border border-[#EF2F29]/30 hover:border-[#ffa940] transition-colors cursor-pointer shadow-lg shadow-black/45">
             <img 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDh-tYbjzJNCirpj54A7LGIMHLt9m7qrq_B759F05rlG44XW1ksLq4i2pfI2TaFgb9RYkHNaUz_TZvO_0lXlKDrsBlgmU6XlE08Ht_4jQUOXA1mr_UI_oAOix54hzWCZy-YWyxh-3uZdTLOpeyaDJ_DS6xMNaqRzgfaBFL9woDfF9tio_FJ6OIzIVMsWa97JYNXPs61aKTjJ1-ZOIUcUMUoio-Lu9QyKf8dt9p3mKj_xBEjPbUhXo8ckHgj63nRJnGm5hvonpy4uA" 
+              src={ user?.profilePic || "https://lh3.googleusercontent.com/aida-public/AB6AXuDh-tYbjzJNCirpj54A7LGIMHLt9m7qrq_B759F05rlG44XW1ksLq4i2pfI2TaFgb9RYkHNaUz_TZvO_0lXlKDrsBlgmU6XlE08Ht_4jQUOXA1mr_UI_oAOix54hzWCZy-YWyxh-3uZdTLOpeyaDJ_DS6xMNaqRzgfaBFL9woDfF9tio_FJ6OIzIVMsWa97JYNXPs61aKTjJ1-ZOIUcUMUoio-Lu9QyKf8dt9p3mKj_xBEjPbUhXo8ckHgj63nRJnGm5hvonpy4uA"} 
               alt="User profile avatar" 
               className="w-full h-full object-cover"
             />
           </div>
           <div className="hidden lg:flex flex-col items-start leading-none">
-            <span className="font-sans text-xs font-bold text-[#dae2fd]">Marcus Thorne</span>
-            <span className="font-mono text-[9px] text-[#ffa940] uppercase tracking-wider mt-0.5 font-bold">Manager</span>
+            <span className="font-sans text-xs font-bold text-[#dae2fd]">{user?.fullName}</span>
+            <span className="font-mono text-[9px] text-[#ffa940] uppercase tracking-wider mt-0.5 font-bold">{user?.role}</span>
           </div>
         </div>
       </div>

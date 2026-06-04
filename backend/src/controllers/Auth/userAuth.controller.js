@@ -146,9 +146,11 @@ export const userLogout = async (req, res)=>{
         })
 
         if(!existingUser){
-            return res.status(401).json({
-                succes:false,
-                message:"User refreshToken not find"
+            res.clearCookie("accessToken");
+            res.clearCookie("refreshToken");
+            return res.status(200).json({
+                succes:true,
+                message:"User is not logged in"
             })
         }
 

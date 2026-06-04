@@ -6,6 +6,7 @@ import DashbordView from '../../components/User/Workspace/Dashboard/DashboardVie
 import TasksView from '../../components/User/Workspace/Tasks/TasksView'
 import AssistantView from '../../components/User/Workspace/Assistant/AssistantView'
 import AnalyticsView from '../../components/User/Workspace/Analytics/AnalyticsView';
+import { useUser } from '../../context/UserContext';
 
 export default function Workspace({ onNavigate }) {
   const [currentTab, setCurrentTab] = useState('dashboard');
@@ -75,7 +76,9 @@ export default function Workspace({ onNavigate }) {
       )}
 
       {/* Global Header */}
-      <Header />
+      <Header 
+      user={useUser().user}
+      />
 
       {/* Main content grid viewports */}
       <main className="pt-24 md:pt-20 px-6 md:pl-[280px] md:pr-12 min-h-screen relative z-10">

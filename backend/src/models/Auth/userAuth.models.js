@@ -21,7 +21,7 @@ const userAuthSchema = new mongoose.Schema({
     },
     role:{
         type : String ,
-        default : "user"
+        default : "Employee",
     },
     provider:{
         type:String,

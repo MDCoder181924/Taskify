@@ -1,4 +1,6 @@
 import { LayoutDashboard, CheckSquare, Bot, BarChart2, Zap, HelpCircle, LogOut } from 'lucide-react';
+import api from '../../../api/axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function Sidebar({ onNavigate, currentTab, setCurrentTab }) {
   const navItems = [
@@ -7,6 +9,21 @@ export default function Sidebar({ onNavigate, currentTab, setCurrentTab }) {
     { id: 'assistant', label: 'AI Assistant', icon: Bot },
     { id: 'analytics', label: 'Analytics', icon: BarChart2 }
   ];
+
+  const naviget = useNavigate();
+
+  const handleLogout = async (e) =>{
+    e.preventDefault();
+    try{
+      const res = await api.post("/auth/user/logout", {});
+      if(res.status === 200){
+        naviget('/');
+      }
+    }catch(err){
+      alert("Logout failed. Please try again.");
+      console.error("Logout failed:", err);
+    }
+  }
 
   return (
     <aside className="fixed left-0 top-0 h-full flex flex-col p-4 z-40 bg-[#000000]/50 backdrop-blur-xl border-r border-white/10 w-64 hidden md:flex">
@@ -77,7 +94,7 @@ export default function Sidebar({ onNavigate, currentTab, setCurrentTab }) {
 
         {/* Sign Out */}
         <button
-          onClick={() => onNavigate && onNavigate('landing')}
+          onClick={handleLogout}
           className="flex items-center gap-3 px-4 py-3 text-[#c7c4d7] hover:bg-red-500/10 hover:text-red-400 rounded-xl transition-all font-sans text-sm text-left w-full cursor-pointer"
         >
           <LogOut className="w-5 h-5" />

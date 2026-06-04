@@ -1,10 +1,15 @@
 import { FileText, CheckCircle2, Clock, Sparkles } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
-export default function StatsGrid() {
+export default function StatsGrid({ tasks }) {
+  const totalTasks = tasks.length || 0;
+  const completedTasks = tasks.filter((task)=> task.taskStatus==="completed").length;
+  const pendingTasks = tasks.filter((task) => task.taskStatus !== "completed").length;
+  
   const stats = [
     {
       title: 'Total Tasks',
-      value: '1,284',
+      value: totalTasks,
       change: '+12%',
       changeType: 'positive',
       icon: FileText,
@@ -13,7 +18,7 @@ export default function StatsGrid() {
     },
     {
       title: 'Completed',
-      value: '842',
+      value: completedTasks,
       change: 'On Track',
       changeType: 'status',
       icon: CheckCircle2,
@@ -22,7 +27,7 @@ export default function StatsGrid() {
     },
     {
       title: 'Pending',
-      value: '442',
+      value: pendingTasks,
       change: 'Urgent',
       changeType: 'urgent',
       icon: Clock,

@@ -6,12 +6,15 @@ import Timeline from './Timeline';
 import AIInsights from './AIInsights';
 import CalendarPreview from './CalendarPreview';
 import RecentActivity from './RecentActivity';
+import { useTask } from '../../../../context/TaskContext';
 
 export default function DashbordView({ }) {
     return (
 
         <>
-            <StatsGrid />
+            <StatsGrid
+                tasks = {useTask().tasks}
+            />
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
 

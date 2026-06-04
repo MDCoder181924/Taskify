@@ -71,3 +71,42 @@ export const complitTask = async ( req , res) =>{
         })
     }
 }
+
+export const TaskEdite = async ( req  , res) =>{
+    try{
+        const { taskId , taskTitle , taskDescription , taskPriority , taskCategory , taskDueDate } = req.body;
+        if(!taskId || !taskTitle || !taskDescription || !taskPriority || !taskCategory || !taskDueDate){
+            return res.status(400).json({
+                success:false,
+                message:"All fields are required"
+            })
+        }
+        const Task = await task.findOne({_id:taskId , userId:req.user.userId});
+
+        if(!Task){
+            return res.status(404).json({
+                success:false,
+                message:"Task not found"
+            })
+        }
+
+        Task.taskTitle = taskTitle;
+        Task.taskDescription = taskDescription;
+        Task.taskPriority = taskPriority;
+        Task.taskCategory = taskCategory;   
+        Task.taskDueDate = taskDueDate;
+
+        await Task.save();
+
+        return res.status(200).json({
+            success:true,
+            message:"Task updated successfully"
+        })
+
+    }catch(error){
+        res.status(400).json({
+            success:false,
+            message:error.message
+        })
+    }
+}

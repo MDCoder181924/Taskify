@@ -26,7 +26,7 @@ export default function TasksFooter({ activeCount, tasksCount }) {
               <span className="w-2.5 h-2.5 rounded-full bg-green-400 animate-ping" />
             </div>
             <p className="text-[10px] font-mono text-[#c7c4d7] mt-0.5 uppercase tracking-wider">
-              Optimization Level: <span className="text-[#ffa8a5] font-bold">98.4%</span>
+              Complite Level: <span className="text-[#ffa8a5] font-bold">{completionRate}%</span>
             </p>
           </div>
         </div>

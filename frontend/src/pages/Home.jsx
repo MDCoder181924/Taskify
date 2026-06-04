@@ -23,7 +23,7 @@ function Home() {
       setTimeout(() => {
         setLoading(false);
       }, 700); 
-    }, 1800);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, []);

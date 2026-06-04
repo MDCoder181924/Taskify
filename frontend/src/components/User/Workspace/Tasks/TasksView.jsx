@@ -74,8 +74,8 @@ export default function TasksView() {
     priority: task.taskPriority,
     category: task.taskCategory,
     dueDate: task.taskDueDate,
-    status: task.taskStatus === 'completed' ? 'completed' : task.taskStatus === 'in_progress' ? 'in_progress' : 'in_progress',
-    progress: task.taskStatus === 'Completed' ? 100 : 45,
+    status: task.taskStatus || 'in_progress',
+    progress: task.taskStatus === 'completed' ? 100 : 45,
     assignees: [],
   })).filter(task => {
     const matchesSearch = task.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -140,6 +140,7 @@ export default function TasksView() {
           setTasks={setTasks}
           activeStatusTab={activeStatusTab}
           onCompleteTask={complitTask}
+          fetchTasks={fetchTasks}
         />
       </div>
 

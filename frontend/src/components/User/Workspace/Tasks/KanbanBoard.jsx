@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Calendar, MessageSquare, Paperclip, CheckSquare, Edit, ArrowRight, ArrowLeft, Check } from 'lucide-react';
 import api from '../../../../api/axios'
+import { toLocalDateKey } from '../../../../utils/dateUtils';
 
 export default function KanbanBoard({ viewMode, tasks, setTasks, activeStatusTab, onCompleteTask, fetchTasks }) {
   const containerRef = useRef(null);
@@ -123,7 +124,7 @@ export default function KanbanBoard({ viewMode, tasks, setTasks, activeStatusTab
             <label className="font-mono text-[9px] text-[#c7c4d7]/60 uppercase tracking-widest px-1">Due Date</label>
             <input
               type="date"
-              min={new Date().toISOString().split("T")[0]}
+              min={toLocalDateKey()}
               onFocus={(e) => e.target.showPicker?.()}
               value={newTaskDueDate}
               onChange={(e) => setNewTaskDueDate(e.target.value)}

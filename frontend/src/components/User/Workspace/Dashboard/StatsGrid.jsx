@@ -1,17 +1,18 @@
 import { FileText, CheckCircle2, Clock, Sparkles } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { isSameLocalDay } from '../../../../utils/dateUtils';
 
 export default function StatsGrid({ tasks }) {
   const totalTasks = tasks.length || 0;
   const completedTasks = tasks.filter((task)=> task.taskStatus==="completed").length;
   const pendingTasks = tasks.filter((task) => task.taskStatus !== "completed").length;
+  const todayTasks = tasks.filter((task) => isSameLocalDay(task.taskDueDate)).length;
   const completionRate = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
   
   const stats = [
     {
-      title: 'Total Tasks',
-      value: totalTasks,
-      change: '+12%',
+      title: "Today's Tasks",
+      value: todayTasks,
+      change: `${totalTasks} total`,
       changeType: 'positive',
       icon: FileText,
       colorClass: 'text-[#EF2F29] bg-[#EF2F29]/10',
@@ -82,7 +83,7 @@ export default function StatsGrid({ tasks }) {
           <p className="text-[#c7c4d7] text-xs font-mono uppercase tracking-widest">Productivity Score</p>
           <div className="flex items-baseline gap-2 mt-1">
             <p className="text-3xl font-extrabold text-[#ffa940] font-display tracking-tight">{completionRate}%</p>
-            <span className="text-[10px] text-[#c7c4d7] font-sans font-medium">Top 1%</span>
+            <span className="text-[10px] text-[#c7c4d7] font-sans font-medium">Completed</span>
           </div>
         </div>
       </div>

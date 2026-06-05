@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { parseTaskDate } from '../../../../utils/dateUtils';
 
-export default function CalendarPreview() {
+export default function CalendarPreview({ tasks = [] }) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedEventDay, setSelectedEventDay] = useState(null);
 
@@ -23,6 +24,19 @@ export default function CalendarPreview() {
   const prevMonthTotalDays = new Date(year, month, 0).getDate();
 
   const daysGrid = [];
+  const taskCountByDay = tasks.reduce((acc, task) => {
+    const dueDate = parseTaskDate(task.taskDueDate);
+
+    if (
+      dueDate &&
+      dueDate.getFullYear() === year &&
+      dueDate.getMonth() === month
+    ) {
+      acc[dueDate.getDate()] = (acc[dueDate.getDate()] || 0) + 1;
+    }
+
+    return acc;
+  }, {});
 
   // Trailing days from previous month
   for (let i = offset - 1; i >= 0; i--) {
@@ -44,7 +58,7 @@ export default function CalendarPreview() {
       day: i,
       isCurrentMonth: true,
       isToday,
-      hasEvent: i === 10 || i === 20 // retaining premium event placeholders
+      taskCount: taskCountByDay[i] || 0
     });
   }
 
@@ -115,10 +129,10 @@ export default function CalendarPreview() {
                   ? 'text-white hover:bg-white/5 hover:text-[#ffa940] font-bold'
                   : 'text-[#908fa0] opacity-40 hover:bg-white/5'
               }`}
-              onClick={() => setSelectedEventDay(cell.hasEvent ? cell.day : null)}
+              onClick={() => setSelectedEventDay(cell.taskCount ? cell : null)}
             >
               <span>{cell.day}</span>
-              {cell.hasEvent && (
+              {cell.taskCount > 0 && (
                 <span className="absolute bottom-1 w-1 h-1 bg-[#ffa940] rounded-full shadow-[0_0_4px_#ffa940]" />
               )}
             </div>
@@ -128,7 +142,7 @@ export default function CalendarPreview() {
 
       {selectedEventDay && (
         <p className="mt-4 text-xs font-medium text-[#ffa940]">
-          Event detected on day {selectedEventDay}: project milestones verification
+          {selectedEventDay.taskCount} task{selectedEventDay.taskCount > 1 ? 's' : ''} due on day {selectedEventDay.day}
         </p>
       )}
     </div>

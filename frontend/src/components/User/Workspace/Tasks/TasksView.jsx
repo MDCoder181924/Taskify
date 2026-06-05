@@ -5,6 +5,7 @@ import KanbanBoard from './KanbanBoard';
 import TasksFooter from './TasksFooter';
 import api from "../../../../api/axios";
 import { useTask } from '../../../../context/TaskContext';
+import { toLocalDateKey } from '../../../../utils/dateUtils';
 
 export default function TasksView() {
   const { tasks, setTasks , fetchTasks} = useTask();
@@ -226,7 +227,7 @@ export default function TasksView() {
                 <label className="font-mono text-[9px] text-[#c7c4d7]/60 uppercase tracking-widest px-1">Due Date</label>
                 <input 
                   type="date"
-                  min={new Date().toISOString().split("T")[0]}
+                  min={toLocalDateKey()}
                   onFocus={(e) => e.target.showPicker?.()}
                   value={newDueDate}
                   onChange={(e) => setNewDueDate(e.target.value)}

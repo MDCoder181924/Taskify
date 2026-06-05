@@ -1,17 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Play, Sparkles, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function Hero() {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const heroRef = useRef(null);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
-      // Save global coordinates for light leak positioning
-      setMousePos({ 
-        x: (e.clientX / window.innerWidth) * 100, 
-        y: (e.clientY / window.innerHeight) * 100 
-      });
+      if (heroRef.current) {
+        const x = (e.clientX / window.innerWidth) * 100;
+        const y = (e.clientY / window.innerHeight) * 100;
+        heroRef.current.style.backgroundImage = `radial-gradient(circle at ${x}% ${y}%, rgba(239, 47, 41, 0.08) 0%, transparent 60%)`;
+      }
     };
 
     window.addEventListener('mousemove', handleMouseMove);
@@ -25,10 +25,8 @@ export default function Hero() {
 
   return (
     <section 
+      ref={heroRef}
       className="relative max-w-7xl mx-auto px-6 md:px-12 pt-28 pb-20 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
-      style={{
-        backgroundImage: `radial-gradient(circle at ${mousePos.x}% ${mousePos.y}%, rgba(239, 47, 41, 0.08) 0%, transparent 60%)`
-      }}
     >
       
       {/* Ambient background glows for section */}

@@ -122,10 +122,10 @@ export default function SpatialUniverse() {
     let mouseY = 0;
     let targetX = 0;
     let targetY = 0;
+    let rect = containerRef.current.getBoundingClientRect();
 
     const handleMouseMove = (event) => {
-      const rect = containerRef.current.getBoundingClientRect();
-      // Mouse coordinates relative to container center
+      // Mouse coordinates relative to container center using cached rect
       mouseX = ((event.clientX - rect.left) / width - 0.5) * 4;
       mouseY = ((event.clientY - rect.top) / height - 0.5) * 4;
     };
@@ -139,9 +139,21 @@ export default function SpatialUniverse() {
         camera.aspect = w / h;
         camera.updateProjectionMatrix();
         renderer.setSize(w, h);
+        if (containerRef.current) {
+          rect = containerRef.current.getBoundingClientRect();
+        }
       }
     });
     resizeObserver.observe(containerRef.current);
+
+    // Viewport intersection observer to pause rendering when off-screen
+    let isIntersecting = true;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        isIntersecting = entry.isIntersecting;
+      });
+    }, { threshold: 0.05 });
+    observer.observe(containerRef.current);
 
     // Animation loop
     let animationId;
@@ -149,6 +161,8 @@ export default function SpatialUniverse() {
 
     const animate = () => {
       animationId = requestAnimationFrame(animate);
+      if (!isIntersecting) return; // Skip WebGL rendering if out of view
+
       const elapsedTime = clock.getElapsedTime();
 
       // Slow orbital rotate
@@ -183,6 +197,7 @@ export default function SpatialUniverse() {
       cancelAnimationFrame(animationId);
       clearInterval(interval);
       resizeObserver.disconnect();
+      observer.disconnect();
       if (containerRef.current && renderer.domElement) {
         containerRef.current.removeChild(renderer.domElement);
       }

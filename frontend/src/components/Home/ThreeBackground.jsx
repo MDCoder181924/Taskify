@@ -22,7 +22,7 @@ export default function ThreeBackground() {
     containerRef.current.appendChild(renderer.domElement);
 
     // Particle field
-    const particlesCount = 200;
+    const particlesCount = 100;
     const geometry = new THREE.BufferGeometry();
     const positions = new Float32Array(particlesCount * 3);
     const colors = new Float32Array(particlesCount * 3);

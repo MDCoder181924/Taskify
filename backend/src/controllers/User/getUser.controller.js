@@ -26,3 +26,18 @@ export const getMe = async (req, res) => {
         });
     }
 };
+
+export const getUserCount = async ( req , res) => {
+    try{
+        const totalUsers = await User.countDocuments({role : "user"});
+        res.status(200).json({
+            success: true,
+            totalUsers
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+}

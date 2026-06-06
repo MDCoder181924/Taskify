@@ -6,6 +6,7 @@ import TasksFooter from './TasksFooter';
 import api from "../../../../api/axios";
 import { useTask } from '../../../../context/TaskContext';
 import { toLocalDateKey } from '../../../../utils/dateUtils';
+import toast from 'react-hot-toast'
 
 export default function TasksView() {
   const { tasks, setTasks , fetchTasks} = useTask();
@@ -39,6 +40,7 @@ export default function TasksView() {
        await api.post("/user/task/completeTask",{
         taskId
       })
+      toast.success("Task marked as completed!");
       await fetchTasks();
     }catch(error){
       console.error("Error completing task:", error);
@@ -92,8 +94,7 @@ export default function TasksView() {
     return matchesSearch && matchesPriority && matchesCategory;
   });
 
-  const activeTasksCount = filteredTasks.filter(t => t.status !== 'completed').length;
-
+  const activeTasksCount = filteredTasks.filter(t => t.status === activeStatusTab).length;
   return (
     <div className="flex flex-col h-full animate-fade-in relative z-10 pb-10">
       

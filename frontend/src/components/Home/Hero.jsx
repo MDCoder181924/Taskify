@@ -1,9 +1,26 @@
 import { useEffect, useState, useRef } from 'react';
 import { Play, Sparkles, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import api from '../../api/auth.js';
+import { toast } from 'react-hot-toast';
 
 export default function Hero() {
   const heroRef = useRef(null);
+
+  const [userCount, setUserCount] = useState(0);
+
+  useEffect(()=>{
+    const fetchUserCount = async () => {
+      try{
+        const res = await api.get("user/count");
+        setUserCount(res.data.totalUsers);
+      }catch(error){
+        console.error("Error fetching user count:", error);
+        toast.error("Failed to load user count");
+      }
+    };
+    fetchUserCount();
+  }, []);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -84,8 +101,8 @@ export default function Hero() {
             <div className="font-mono text-[10px] text-on-surface-variant uppercase tracking-widest mt-1">Efficiency Lift</div>
           </div>
           <div>
-            <div className="font-display font-extrabold text-2xl text-white">50k+</div>
-            <div className="font-mono text-[10px] text-on-surface-variant uppercase tracking-widest mt-1">Teams Deployed</div>
+            <div className="font-display font-extrabold text-2xl text-white">{ userCount }</div>
+            <div className="font-mono text-[10px] text-on-surface-variant uppercase tracking-widest mt-1">Users Joined</div>
           </div>
         </div>
 

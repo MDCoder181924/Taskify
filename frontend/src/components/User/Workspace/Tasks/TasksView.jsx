@@ -19,6 +19,7 @@ export default function TasksView() {
   const [priorityFilter, setPriorityFilter] = useState('All');
   const [categoryFilter, setCategoryFilter] = useState('All');
   const [activeStatusTab, setActiveStatusTab] = useState('in_progress'); // 'in_progress', 'review', 'completed'
+  const [isCreatingTask, setIsCreatingTask] = useState(false);
 
   // Modal and new task form inputs states
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -46,6 +47,8 @@ export default function TasksView() {
 
   const handleAddTaskSubmit = async (e) => {
     e.preventDefault();
+    if(isCreatingTask) return;
+    setIsCreatingTask(true);
     try{
       const res = await api.post("/user/task/addTask",{
         taskTitle: newTitle,
@@ -55,16 +58,19 @@ export default function TasksView() {
         taskDueDate: newDueDate
       })
       await fetchTasks();
+      setNewTitle('');
+      setNewDesc('');
+      setNewPriority('Medium');
+      setNewCategory('');
+      setNewDueDate('');
+      setIsAddModalOpen(false);
     }
     catch(error){
       console.error("Error adding task:", error);
     }
-    setNewTitle('');
-    setNewDesc('');
-    setNewPriority('Medium');
-    setNewCategory('');
-    setNewDueDate('');
-    setIsAddModalOpen(false);
+    finally{
+      setIsCreatingTask(false);
+    }
   };
 
   // Perform multi-criteria filter computation
@@ -165,8 +171,9 @@ export default function TasksView() {
             <div className="flex justify-between items-center mb-6">
               <h3 className="font-display font-extrabold text-xl text-white tracking-tight">Create Task Node</h3>
               <button 
-                onClick={() => setIsAddModalOpen(false)}
-                className="w-8 h-8 rounded-full bg-white/5 border border-white/5 hover:bg-white/10 flex items-center justify-center text-[#c7c4d7] hover:text-white transition-colors cursor-pointer"
+                onClick={() => {if(!isCreatingTask) setIsAddModalOpen(false)}}
+                className={`w-8 h-8 rounded-full bg-white/5 border border-white/5 hover:bg-white/10 flex items-center justify-center text-[#c7c4d7] hover:text-white transition-colors ${
+                  isCreatingTask ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
               >
                 ✕
               </button>
@@ -238,9 +245,11 @@ export default function TasksView() {
 
               <button 
                 type="submit"
-                className="w-full mt-2 py-4 bg-gradient-to-r from-[#EF2F29] to-[#ff6b66] text-white rounded-xl font-sans font-bold text-xs uppercase tracking-wider hover:scale-102 active:scale-98 cursor-pointer shadow-lg shadow-[#EF2F29]/15 transition-all"
-              >
-                Initialize Node Task
+                disabled={isCreatingTask}
+                className={`w-full mt-2 py-4 bg-gradient-to-r from-[#EF2F29] to-[#ff6b66] text-white rounded-xl font-sans font-bold text-xs uppercase tracking-wider shadow-lg shadow-[#EF2F29]/15 transition-all ${
+                  isCreatingTask ? 'opacity-60 cursor-not-allowed' : 'hover:scale-102 active:scale-98 cursor-pointer' }`}
+                >
+                {isCreatingTask ? 'Task Creating...' : 'Initialize Node Task'}
               </button>
             </form>
           </div>

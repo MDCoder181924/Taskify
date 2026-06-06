@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Calendar, MessageSquare, Paperclip, CheckSquare, Edit, ArrowRight, ArrowLeft, Check } from 'lucide-react';
 import api from '../../../../api/axios'
 import { toLocalDateKey } from '../../../../utils/dateUtils';
+import toast from 'react-hot-toast';
 
 export default function KanbanBoard({ viewMode, tasks, setTasks, activeStatusTab, onCompleteTask, fetchTasks }) {
   const containerRef = useRef(null);
@@ -26,14 +27,16 @@ export default function KanbanBoard({ viewMode, tasks, setTasks, activeStatusTab
         taskDueDate: newTaskDueDate
       })
       if (res.data.success) {
+        toast.success("Task updated successfully");
         await fetchTasks();
         setEditTaskSow(false);
       }
       else {
-        alert("Failed to update task: " + res.data.message);
+        toast.error("Failed to update task: " + res.data.message);
       }
     } catch (error) {
       console.error("Error updating task:", error);
+      toast.error("Failed to update task.");
     }
   }
 

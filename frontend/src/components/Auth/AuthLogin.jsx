@@ -19,6 +19,7 @@ import {
 import {Link , useNavigate} from "react-router-dom";
 import api from '../../api/axios'
 import { useUser } from '../../context/UserContext';
+import toast from 'react-hot-toast';
 
 export default function AuthLogin({ onNavigate }) {
   const backdropRef = useRef(null);
@@ -40,10 +41,11 @@ export default function AuthLogin({ onNavigate }) {
         userPassword:password, 
       })
       setUser(res.data.existingUser);
+      toast.success("Login successful")
       naviget("/dashboard")
     }catch(error){
       console.log(error);
-      alert("your data not found");
+      toast.error("your data not found");
     }
   }
 

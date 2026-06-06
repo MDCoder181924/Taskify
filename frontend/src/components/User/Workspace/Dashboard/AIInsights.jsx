@@ -1,4 +1,5 @@
 import { Sparkles, Wand2, CalendarRange, ChevronRight } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 export default function AIInsights() {
   const suggestions = [
@@ -41,7 +42,7 @@ export default function AIInsights() {
             <div 
               key={idx}
               className={`p-4 rounded-2xl bg-white/5 border border-white/10 ${sug.hoverGlow} transition-all duration-300 cursor-pointer group/card`}
-              onClick={() => alert(`Initiating AI Action: "${sug.title}"...`)}
+              onClick={() => toast(`Initiating AI Action: "${sug.title}"...`)}
             >
               <div className="flex items-center gap-3 mb-2">
                 <div className={`w-8 h-8 rounded-lg ${sug.colorClass} flex items-center justify-center`}>

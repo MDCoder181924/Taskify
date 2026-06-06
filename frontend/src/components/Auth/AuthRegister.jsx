@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { Link, useNavigate } from "react-router-dom"
 import api from '../../api/axios.js'
+import toast from 'react-hot-toast';
 
 export default function AuthRegister({ onNavigate }) {
   const backdropRef = useRef(null);
@@ -40,7 +41,7 @@ export default function AuthRegister({ onNavigate }) {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      alert("Password and confirm password do not match");
+      toast.error("Password and confirm password do not match");
       return;
     }
 
@@ -51,10 +52,11 @@ export default function AuthRegister({ onNavigate }) {
         userEmail: email,
         userPassword: password
       })
+      toast.success("Registration successful")
       navigate("/dashboard")
     } catch (error) {
       console.log(error.response?.data);
-      alert(error.response?.data?.message || "Please add correct data")
+      toast.error(error.response?.data?.message || "Please add correct data")
     }
   }
 

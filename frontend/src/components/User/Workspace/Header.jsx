@@ -1,4 +1,5 @@
 import { Search, Bell, Settings } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 export default function Header({user}) {
   return (
@@ -20,7 +21,7 @@ export default function Header({user}) {
         {/* Notifications Icon Button */}
         <button 
           className="p-2 text-[#c7c4d7] hover:text-[#EF2F29] hover:bg-white/5 rounded-xl transition-all cursor-pointer relative"
-          onClick={() => alert('Coordinating Quantum System Alerts...')}
+          onClick={() => toast('Coordinating Quantum System Alerts...')}
         >
           <Bell className="w-5 h-5" />
           <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#ff6b4a] animate-ping" />
@@ -30,7 +31,7 @@ export default function Header({user}) {
         {/* Settings Icon Button */}
         <button 
           className="p-2 text-[#c7c4d7] hover:text-[#EF2F29] hover:bg-white/5 rounded-xl transition-all cursor-pointer"
-          onClick={() => alert('Accessing settings node...')}
+          onClick={() => toast('Accessing settings node...')}
         >
           <Settings className="w-5 h-5" />
         </button>

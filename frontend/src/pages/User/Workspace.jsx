@@ -7,6 +7,7 @@ import TasksView from '../../components/User/Workspace/Tasks/TasksView'
 import AssistantView from '../../components/User/Workspace/Assistant/AssistantView'
 import AnalyticsView from '../../components/User/Workspace/Analytics/AnalyticsView';
 import { useUser } from '../../context/UserContext';
+import toast from 'react-hot-toast';
 
 export default function Workspace({ onNavigate }) {
   const [currentTab, setCurrentTab] = useState('dashboard');
@@ -119,7 +120,7 @@ export default function Workspace({ onNavigate }) {
       {/* Floating Action Button (FAB) for speedy task adding */}
       <button
         className="fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-tr from-[#EF2F29] to-[#ff6b4a] rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-40 group cursor-pointer border border-white/15"
-        onClick={() => alert('Coordinating Quantum Core: Add New Task...')}
+        onClick={() => toast('Coordinating Quantum Core: Add New Task...')}
       >
         <Plus className="w-6 h-6 text-[#ffffff] group-hover:rotate-90 transition-transform duration-300" />
       </button>

@@ -1,6 +1,7 @@
 import { LayoutDashboard, CheckSquare, Bot, BarChart2, Zap, HelpCircle, LogOut } from 'lucide-react';
 import api from '../../../api/axios';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 export default function Sidebar({ onNavigate, currentTab, setCurrentTab }) {
   const navItems = [
@@ -17,10 +18,11 @@ export default function Sidebar({ onNavigate, currentTab, setCurrentTab }) {
     try{
       const res = await api.post("/auth/user/logout", {});
       if(res.status === 200){
+        toast.success("Logged out successfully");
         naviget('/');
       }
     }catch(err){
-      alert("Logout failed. Please try again.");
+      toast.error("Logout failed. Please try again.");
       console.error("Logout failed:", err);
     }
   }
@@ -76,7 +78,7 @@ export default function Sidebar({ onNavigate, currentTab, setCurrentTab }) {
           <div className="absolute inset-0 bg-gradient-to-tr from-[#EF2F29] to-[#ff6b4a] opacity-80 blur-sm group-hover:opacity-100 transition-opacity"></div>
           <button 
             className="w-full relative py-3 px-4 bg-[#050505] text-white rounded-xl font-bold shadow-lg hover:bg-[#121212] transition-all text-xs tracking-wider uppercase"
-            onClick={() => alert('Quantum Core Upgraded to Pro!')}
+            onClick={() => toast.success('Quantum Core Upgraded to Pro!')}
           >
             Upgrade to Pro
           </button>
@@ -86,7 +88,7 @@ export default function Sidebar({ onNavigate, currentTab, setCurrentTab }) {
         <a 
           href="#help"
           className="flex items-center gap-3 px-4 py-3 text-[#c7c4d7] hover:bg-white/5 hover:text-white rounded-xl transition-all font-sans text-sm"
-          onClick={(e) => { e.preventDefault(); alert('Opening Quantum Assistance Node...'); }}
+          onClick={(e) => { e.preventDefault(); toast('Opening Quantum Assistance Node...'); }}
         >
           <HelpCircle className="w-5 h-5" />
           <span>Help</span>

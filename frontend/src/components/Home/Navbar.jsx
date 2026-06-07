@@ -132,22 +132,26 @@ useEffect(() => {
 
       {/* Mobile Drawer */}
       <div 
-        className={`md:hidden fixed top-0 right-0 h-screen w-72 z-40 bg-surface-lowest/95 backdrop-blur-2xl border-l border-white/10 p-8 shadow-2xl transition-transform duration-500 ease-in-out ${
+        className={`md:hidden fixed top-0 right-0 h-screen w-[min(18rem,calc(100vw-1rem))] z-40 bg-surface-lowest/95 backdrop-blur-2xl border-l border-white/10 px-5 py-6 shadow-2xl transition-transform duration-500 ease-in-out ${
           menuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        <div className="flex justify-end mb-8">
-          <button onClick={() => setMenuOpen(false)}>
+        <div className="flex justify-end mb-6">
+          <button
+            className="w-10 h-10 flex items-center justify-center rounded-lg text-on-surface-variant hover:text-primary hover:bg-white/5 transition-colors"
+            onClick={() => setMenuOpen(false)}
+            aria-label="Close menu"
+          >
             <X className="w-6 h-6 text-on-surface-variant" />
           </button>
         </div>
 
-        <nav className="flex flex-col gap-6 mb-12">
+        <nav className="flex flex-col gap-5 mb-8">
           {['Home', 'Features', 'Solutions', 'Pricing', 'About'].map((link) => (
             <a 
               key={link} 
               href={`#${link.toLowerCase()}`}
-              className=" font-sans font-semibold text-lg text-on-surface hover:text-primary transition-colors"
+              className="font-sans font-semibold text-sm sm:text-base text-on-surface hover:text-primary transition-colors"
               onClick={() => setMenuOpen(false)}
             >
               {link}
@@ -155,12 +159,20 @@ useEffect(() => {
           ))}
         </nav>
 
-        <div className="flex flex-col gap-4">
-          <Link to="/login" className="w-full py-3 rounded-xl border border-white/10 font-bold text-on-surface hover:bg-white/5 transition-colors">
+        <div className="flex flex-col gap-3">
+          <Link
+            to="/login"
+            className="w-full min-h-11 px-4 inline-flex items-center justify-center rounded-lg border border-white/10 font-bold text-sm text-on-surface hover:bg-white/5 transition-colors"
+            onClick={() => setMenuOpen(false)}
+          >
             Login
           </Link>
           
-          <Link to="/register" className="w-full py-3 rounded-xl bg-gradient-to-r from-primary to-secondary text-on-primary font-bold shadow-lg shadow-primary/20">
+          <Link
+            to="/register"
+            className="w-full min-h-11 px-4 inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-primary to-secondary text-on-primary font-bold text-sm shadow-lg shadow-primary/20"
+            onClick={() => setMenuOpen(false)}
+          >
             Get Started
           </Link>
         </div>

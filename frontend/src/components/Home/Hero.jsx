@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
 import { Play, Sparkles, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import api from '../../api/auth.js';
-import { toast } from 'react-hot-toast';
+import api from '../../api/axios';
+import toast  from 'react-hot-toast';
 
 export default function Hero() {
   const heroRef = useRef(null);

@@ -1,4 +1,4 @@
-import { LayoutDashboard, CheckSquare, Bot, BarChart2, Zap, HelpCircle, LogOut } from 'lucide-react';
+import { LayoutDashboard, CheckSquare, Bot, Users, Zap, HelpCircle, LogOut } from 'lucide-react';
 import api from '../../../api/axios';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
@@ -8,7 +8,7 @@ export default function Sidebar({ onNavigate, currentTab, setCurrentTab }) {
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'tasks', label: 'My Tasks', icon: CheckSquare },
     { id: 'assistant', label: 'AI Assistant', icon: Bot },
-    { id: 'analytics', label: 'Analytics', icon: BarChart2 }
+    { id: 'collaboration', label: 'Collaboration', icon: Users }
   ];
 
   const naviget = useNavigate();

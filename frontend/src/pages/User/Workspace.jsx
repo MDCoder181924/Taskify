@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
-import { Plus, Menu, X, Terminal, Brain, CheckSquare, BarChart2 } from 'lucide-react';
+import { Plus, Menu, X, Terminal, Brain, CheckSquare, Users } from 'lucide-react';
 import Sidebar from '../../components/User/Workspace/Sidebar';
 import Header from '../../components/User/Workspace/Header';
 import DashbordView from '../../components/User/Workspace/Dashboard/DashboardView'
 import TasksView from '../../components/User/Workspace/Tasks/TasksView'
 import AssistantView from '../../components/User/Workspace/Assistant/AssistantView'
-import AnalyticsView from '../../components/User/Workspace/Analytics/AnalyticsView';
+import CollaborationView from '../../components/User/Workspace/Collaboration/CollaborationView';
 import { useUser } from '../../context/UserContext';
 import toast from 'react-hot-toast';
 
@@ -59,10 +59,10 @@ export default function Workspace({ onNavigate }) {
             <Brain className="w-5 h-5" /> AI Assistant
           </button>
           <button
-            onClick={() => { setCurrentTab('analytics'); setIsMobileMenuOpen(false); }}
-            className={`flex items-center gap-3 py-3 px-4 rounded-xl text-lg font-bold ${currentTab === 'analytics' ? 'bg-[#b21b16]/20 text-[#ffa940]' : 'text-white'}`}
+            onClick={() => { setCurrentTab('collaboration'); setIsMobileMenuOpen(false); }}
+            className={`flex items-center gap-3 py-3 px-4 rounded-xl text-lg font-bold ${currentTab === 'collaboration' ? 'bg-[#b21b16]/20 text-[#ffa940]' : 'text-white'}`}
           >
-            <BarChart2 className="w-5 h-5" /> Analytics
+            <Users className="w-5 h-5" /> Collaboration
           </button>
 
           <div className="h-[1px] bg-white/10 my-4" />
@@ -90,8 +90,8 @@ export default function Workspace({ onNavigate }) {
           <TasksView />
         ) : currentTab === 'assistant' ? (
           <AssistantView />
-        ) : currentTab === 'analytics' ? (
-          <AnalyticsView />
+        ) : currentTab === 'collaboration' ? (
+          <CollaborationView />
         ) : (
           <div className="flex flex-col items-center justify-center min-h-[70vh] text-center p-6 animate-fade-in">
             <div className="relative mb-6">

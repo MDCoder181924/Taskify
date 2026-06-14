@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useUser } from '../../../../context/UserContext';
+import api from '../../../../api/axios';
 import toast from 'react-hot-toast';
 
 // Import subcomponents
@@ -16,7 +17,9 @@ export default function CollaborationView() {
 
   // Core States
   const [projects, setProjects] = useState([]);
-  const [tasks, setTasks] = useState([]);
+  const [receivedTasks, setReceivedTasks] = useState([]);
+  const [sentTasks, setSentTasks] = useState([]);
+  const [registeredUsers, setRegisteredUsers] = useState([]);
   const [simulatedUser, setSimulatedUser] = useState(primaryUserEmail);
   const [selectedProjectId, setSelectedProjectId] = useState('');
 
@@ -31,76 +34,15 @@ export default function CollaborationView() {
   const [taskPriority, setTaskPriority] = useState('Medium');
   const [taskDueDate, setTaskDueDate] = useState('');
 
-  // Load initial data or populate mock data
+  // Sync simulated user header with axios instance
   useEffect(() => {
-    const savedProjects = localStorage.getItem('taskify_collab_projects');
-    const savedTasks = localStorage.getItem('taskify_collab_tasks');
-
-    if (savedProjects && savedTasks) {
-      setProjects(JSON.parse(savedProjects));
-      setTasks(JSON.parse(savedTasks));
+    if (simulatedUser) {
+      api.defaults.headers.common['x-simulated-user'] = simulatedUser;
+      fetchData();
     } else {
-      // Pre-populate with beautiful demo data
-      const demoProjects = [
-        {
-          id: 'proj-1',
-          name: 'Quantum Core Redesign',
-          creator: primaryUserEmail,
-          members: [primaryUserEmail, 'sophie.dev@taskify.io', 'marcus.lead@taskify.io', 'elena.qa@taskify.io']
-        },
-        {
-          id: 'proj-2',
-          name: 'Taskify Mobile App',
-          creator: 'marcus.lead@taskify.io',
-          members: ['marcus.lead@taskify.io', primaryUserEmail, 'sophie.dev@taskify.io']
-        }
-      ];
-
-      const demoTasks = [
-        {
-          id: 'task-1',
-          projectId: 'proj-1',
-          projectName: 'Quantum Core Redesign',
-          title: 'Review Database Migration Script',
-          description: 'Check if the SQLite schemas map correctly to PostgreSQL and verify constraints.',
-          assigner: 'marcus.lead@taskify.io',
-          assignee: primaryUserEmail,
-          priority: 'High',
-          dueDate: new Date(Date.now() + 86400000 * 2).toISOString().split('T')[0], // 2 days from now
-          status: 'Pending'
-        },
-        {
-          id: 'task-2',
-          projectId: 'proj-1',
-          projectName: 'Quantum Core Redesign',
-          title: 'Optimize Landing Page Bundle Size',
-          description: 'Refactor dynamic imports for heavy components and remove unused dependencies.',
-          assigner: primaryUserEmail,
-          assignee: 'sophie.dev@taskify.io',
-          priority: 'Medium',
-          dueDate: new Date(Date.now() + 86400000 * 5).toISOString().split('T')[0],
-          status: 'Pending'
-        },
-        {
-          id: 'task-3',
-          projectId: 'proj-1',
-          projectName: 'Quantum Core Redesign',
-          title: 'Run Safari Compatibility Testing',
-          description: 'Test CSS Grid layouts and flex containers on iOS 16 Safari and macOS.',
-          assigner: primaryUserEmail,
-          assignee: 'elena.qa@taskify.io',
-          priority: 'Low',
-          dueDate: new Date(Date.now() - 86400000).toISOString().split('T')[0], // yesterday
-          status: 'Completed'
-        }
-      ];
-
-      setProjects(demoProjects);
-      setTasks(demoTasks);
-      localStorage.setItem('taskify_collab_projects', JSON.stringify(demoProjects));
-      localStorage.setItem('taskify_collab_tasks', JSON.stringify(demoTasks));
+      delete api.defaults.headers.common['x-simulated-user'];
     }
-  }, [primaryUserEmail]);
+  }, [simulatedUser]);
 
   // Keep simulatedUser updated if logged-in user changes
   useEffect(() => {
@@ -109,15 +51,65 @@ export default function CollaborationView() {
     }
   }, [user]);
 
-  // Sync state to local storage helpers
-  const syncProjects = (updatedProjects) => {
-    setProjects(updatedProjects);
-    localStorage.setItem('taskify_collab_projects', JSON.stringify(updatedProjects));
-  };
+  // Fetch all collaboration workspace data from Express backend
+  const fetchData = async () => {
+    try {
+      const [projRes, recTasksRes, sentTasksRes, usersRes] = await Promise.all([
+        api.get('/user/collaboration/projects'),
+        api.get('/user/collaboration/tasks/received'),
+        api.get('/user/collaboration/tasks/sent'),
+        api.get('/user/collaboration/users')
+      ]);
 
-  const syncTasks = (updatedTasks) => {
-    setTasks(updatedTasks);
-    localStorage.setItem('taskify_collab_tasks', JSON.stringify(updatedTasks));
+      if (projRes.data.success) {
+        const formattedProjects = projRes.data.projects.map(p => ({
+          id: p._id,
+          name: p.name,
+          creator: p.creator?.userEmail || p.creator,
+          members: p.members.map(m => m.userEmail || m)
+        }));
+        setProjects(formattedProjects);
+      }
+
+      if (recTasksRes.data.success) {
+        const formattedRec = recTasksRes.data.tasks.map(t => ({
+          id: t._id,
+          projectId: t.projectId?._id || t.projectId,
+          projectName: t.projectId?.name || t.projectName || 'Project Workspace',
+          title: t.title,
+          description: t.description,
+          assigner: t.assigner?.userEmail || t.assigner,
+          assignee: t.assignee?.userEmail || t.assignee,
+          priority: t.priority,
+          dueDate: t.dueDate ? t.dueDate.split('T')[0] : '',
+          status: t.status
+        }));
+        setReceivedTasks(formattedRec);
+      }
+
+      if (sentTasksRes.data.success) {
+        const formattedSent = sentTasksRes.data.tasks.map(t => ({
+          id: t._id,
+          projectId: t.projectId?._id || t.projectId,
+          projectName: t.projectId?.name || t.projectName || 'Project Workspace',
+          title: t.title,
+          description: t.description,
+          assigner: t.assigner?.userEmail || t.assigner,
+          assignee: t.assignee?.userEmail || t.assignee,
+          priority: t.priority,
+          dueDate: t.dueDate ? t.dueDate.split('T')[0] : '',
+          status: t.status
+        }));
+        setSentTasks(formattedSent);
+      }
+
+      if (usersRes.data.success) {
+        setRegisteredUsers(usersRes.data.users);
+      }
+    } catch (error) {
+      console.error('Failed to sync details with server', error);
+      toast.error('Failed to synchronize collaboration details');
+    }
   };
 
   // Add email badge to list before creating project
@@ -146,8 +138,8 @@ export default function CollaborationView() {
     setProjectMembers(projectMembers.filter(email => email !== emailToRemove));
   };
 
-  // Handle Project Creation
-  const handleCreateProject = (e) => {
+  // Handle Project Creation (DB Persisted)
+  const handleCreateProject = async (e) => {
     e.preventDefault();
     const name = projectName.trim();
     if (!name) {
@@ -155,33 +147,31 @@ export default function CollaborationView() {
       return;
     }
 
-    const newProject = {
-      id: `proj-${Date.now()}`,
-      name,
-      creator: simulatedUser,
-      members: Array.from(new Set([simulatedUser, ...projectMembers]))
-    };
+    try {
+      const res = await api.post('/user/collaboration/projects', {
+        name,
+        members: projectMembers
+      });
 
-    const updatedProjects = [...projects, newProject];
-    syncProjects(updatedProjects);
-    
-    // Reset inputs
-    setProjectName('');
-    setProjectMembers([]);
-    setSelectedProjectId(newProject.id);
-
-    toast.success(`Project "${name}" launched successfully!`);
+      if (res.data.success) {
+        toast.success(`Project "${name}" launched successfully!`);
+        setProjectName('');
+        setProjectMembers([]);
+        setSelectedProjectId(res.data.project._id);
+        fetchData();
+      }
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Failed to launch project');
+    }
   };
 
-  // Handle Task Assignment
-  const handleAssignTask = (e) => {
+  // Handle Task Assignment (DB Persisted)
+  const handleAssignTask = async (e) => {
     e.preventDefault();
     if (!selectedProjectId) {
       toast.error('Please select a project first');
       return;
     }
-    const project = projects.find(p => p.id === selectedProjectId);
-    if (!project) return;
 
     const title = taskTitle.trim();
     const desc = taskDesc.trim();
@@ -195,84 +185,86 @@ export default function CollaborationView() {
       return;
     }
 
-    const newTask = {
-      id: `task-${Date.now()}`,
-      projectId: selectedProjectId,
-      projectName: project.name,
-      title,
-      description: desc,
-      assigner: simulatedUser,
-      assignee: taskAssignee,
-      priority: taskPriority,
-      dueDate: taskDueDate || new Date(Date.now() + 86400000 * 3).toISOString().split('T')[0], // default 3 days
-      status: 'Pending'
-    };
+    try {
+      const res = await api.post('/user/collaboration/tasks', {
+        projectId: selectedProjectId,
+        title,
+        description: desc,
+        assigneeEmail: taskAssignee,
+        priority: taskPriority,
+        dueDate: taskDueDate || undefined
+      });
 
-    const updatedTasks = [...tasks, newTask];
-    syncTasks(updatedTasks);
-
-    // Reset task form
-    setTaskTitle('');
-    setTaskDesc('');
-    setTaskAssignee('');
-    setTaskPriority('Medium');
-    setTaskDueDate('');
-
-    toast.success(`Task assigned to ${taskAssignee}!`, {
-      icon: '🚀'
-    });
+      if (res.data.success) {
+        toast.success(`Task assigned to ${taskAssignee}!`, { icon: '🚀' });
+        setTaskTitle('');
+        setTaskDesc('');
+        setTaskAssignee('');
+        setTaskPriority('Medium');
+        setTaskDueDate('');
+        fetchData();
+      }
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Failed to assign task');
+    }
   };
 
   // Complete received task
-  const handleCompleteTask = (taskId) => {
-    const updated = tasks.map(task => {
-      if (task.id === taskId) {
-        return { ...task, status: 'Completed' };
+  const handleCompleteTask = async (taskId) => {
+    try {
+      const res = await api.patch(`/user/collaboration/tasks/${taskId}/status`, {
+        status: 'Completed'
+      });
+      if (res.data.success) {
+        toast.success('Task marked as Completed!', { icon: '✅' });
+        fetchData();
       }
-      return task;
-    });
-    syncTasks(updated);
-    toast.success('Task marked as Completed!', {
-      icon: '✅'
-    });
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Failed to complete task');
+    }
   };
 
   // Reject received task
-  const handleRejectTask = (taskId) => {
-    const updated = tasks.map(task => {
-      if (task.id === taskId) {
-        return { ...task, status: 'Rejected' };
+  const handleRejectTask = async (taskId) => {
+    try {
+      const res = await api.patch(`/user/collaboration/tasks/${taskId}/status`, {
+        status: 'Rejected'
+      });
+      if (res.data.success) {
+        toast.error('Task rejected', { icon: '❌' });
+        fetchData();
       }
-      return task;
-    });
-    syncTasks(updated);
-    toast.error('Task rejected', {
-      icon: '❌'
-    });
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Failed to reject task');
+    }
   };
 
   // Delete/Cancel Task
-  const handleDeleteTask = (taskId) => {
-    const updated = tasks.filter(task => task.id !== taskId);
-    syncTasks(updated);
-    toast.success('Task retracted');
+  const handleDeleteTask = async (taskId) => {
+    try {
+      const res = await api.delete(`/user/collaboration/tasks/${taskId}`);
+      if (res.data.success) {
+        toast.success('Task retracted');
+        fetchData();
+      }
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Failed to retract task');
+    }
   };
 
-  // Gather all unique users ever added to any project, plus primary user, to populate the simulation dropdown
+  // Merge database users with fallback emails for identity switcher dropdown
   const allKnownUsers = Array.from(new Set([
     primaryUserEmail,
+    ...registeredUsers.map(u => u.userEmail),
     ...projects.flatMap(p => p.members),
-    ...tasks.flatMap(t => [t.assigner, t.assignee])
+    ...receivedTasks.flatMap(t => [t.assigner, t.assignee]),
+    ...sentTasks.flatMap(t => [t.assigner, t.assignee])
   ])).filter(Boolean);
 
   const activeProject = projects.find(p => p.id === selectedProjectId);
 
-  // Filter tasks based on selected simulated identity
-  const receivedTasks = tasks.filter(t => t.assignee === simulatedUser);
-  const sentTasks = tasks.filter(t => t.assigner === simulatedUser);
-
-  // Metrics calculations for simulated user
-  const userProjectsCount = projects.filter(p => p.members.includes(simulatedUser)).length;
+  // Metrics calculations
+  const userProjectsCount = projects.length;
   const pendingReceivedCount = receivedTasks.filter(t => t.status === 'Pending').length;
   const completedReceivedCount = receivedTasks.filter(t => t.status === 'Completed').length;
   const totalSentCount = sentTasks.length;

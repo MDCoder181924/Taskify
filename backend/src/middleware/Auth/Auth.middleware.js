@@ -41,9 +41,9 @@ const checkUserExist = async (req, res, next) => {
     }
 };
 
-const authMiddleware = (req, res,next) => {
+const authMiddleware = async (req, res, next) => {
   try {
-    const token =req.cookies.accessToken;
+    const token = req.cookies.accessToken;
 
     if (!token) {
       return res.status(401).json({
@@ -51,9 +51,22 @@ const authMiddleware = (req, res,next) => {
       });
     }
 
-    const decoded = jwt.verify(token,process.env.ACCESS_TOKEN_SECRET);
-    
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     req.user = decoded;
+
+    // Support simulated identity switching in development / local testing
+    const simulatedEmail = req.headers['x-simulated-user'];
+    if (simulatedEmail && process.env.NODE_ENV !== 'production') {
+      const simulatedUserObj = await user.findOne({ userEmail: simulatedEmail });
+      if (simulatedUserObj) {
+        req.user = {
+          userId: simulatedUserObj._id.toString(),
+          userEmail: simulatedUserObj.userEmail,
+          role: simulatedUserObj.role
+        };
+      }
+    }
+
     next();
 
   } catch (error) {

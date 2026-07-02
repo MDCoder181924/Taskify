@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
-import { Menu, X, Cpu } from 'lucide-react'; 
+import { Menu, X, Cpu, Sun, Moon } from 'lucide-react'; 
 import {Link} from 'react-router-dom';
 import { gsap } from 'gsap';
+import { useTheme } from '../../context/ThemeContext';
+
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
 useEffect(() => {
   const tl = gsap.timeline();
@@ -109,6 +112,14 @@ useEffect(() => {
 
         {/* Action Buttons */}
         <div className="hidden md:flex items-center gap-6">
+          <button
+            onClick={toggleTheme}
+            className="p-2 text-on-surface-variant hover:text-primary transition-colors cursor-pointer"
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+          </button>
+
           <Link to="/login" className="logingsap font-sans font-medium text-sm text-on-surface-variant hover:text-white transition-colors duration-300">
             Login
           </Link>
@@ -160,6 +171,21 @@ useEffect(() => {
         </nav>
 
         <div className="flex flex-col gap-3">
+          <button
+            onClick={toggleTheme}
+            className="w-full min-h-11 px-4 inline-flex items-center justify-center gap-2 rounded-lg border border-white/10 font-bold text-sm text-on-surface hover:bg-white/5 transition-colors"
+          >
+            {theme === 'dark' ? (
+              <>
+                <Sun className="w-4 h-4" /> Light Mode
+              </>
+            ) : (
+              <>
+                <Moon className="w-4 h-4" /> Dark Mode
+              </>
+            )}
+          </button>
+
           <Link
             to="/login"
             className="w-full min-h-11 px-4 inline-flex items-center justify-center rounded-lg border border-white/10 font-bold text-sm text-on-surface hover:bg-white/5 transition-colors"

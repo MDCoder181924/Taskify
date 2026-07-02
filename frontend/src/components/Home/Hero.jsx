@@ -22,22 +22,6 @@ export default function Hero() {
     fetchUserCount();
   }, []);
 
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      if (heroRef.current) {
-        const x = (e.clientX / window.innerWidth) * 100;
-        const y = (e.clientY / window.innerHeight) * 100;
-        heroRef.current.style.backgroundImage = `radial-gradient(circle at ${x}% ${y}%, rgba(239, 47, 41, 0.08) 0%, transparent 60%)`;
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
-
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -45,10 +29,6 @@ export default function Hero() {
       ref={heroRef}
       className="relative max-w-7xl mx-auto px-6 md:px-12 pt-28 pb-20 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
     >
-      
-      {/* Ambient background glows for section */}
-      <div className="absolute top-[10%] left-[-10%] w-[35rem] h-[35rem] rounded-full bg-primary/10 blur-[120px] pointer-events-none z-[-1] animate-pulse" style={{ animationDuration: '8s' }} />
-      <div className="absolute bottom-[10%] right-[-10%] w-[30rem] h-[30rem] rounded-full bg-secondary/10 blur-[100px] pointer-events-none z-[-1] animate-pulse" style={{ animationDuration: '12s' }} />
 
       {/* Hero Left Content */}
       <div className="flex flex-col gap-8 reveal active">

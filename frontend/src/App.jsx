@@ -3,17 +3,20 @@ import AppRoutes from './routes/AppRoutes'
 import { BrowserRouter } from 'react-router-dom'
 import { UserProvider } from './context/UserContext'
 import { TaskProvider } from './context/TaskContext'
-import {Toaster } from 'react-hot-toast'
+import { ThemeProvider } from './context/ThemeContext'
+import { Toaster } from 'react-hot-toast'
 
 const App = () => {
   return (
     <BrowserRouter>
-      <UserProvider>
-        <TaskProvider>
-          <AppRoutes />
-          <Toaster position="bottom-right" />
-        </TaskProvider>
-      </UserProvider>
+      <ThemeProvider>
+        <UserProvider>
+          <TaskProvider>
+            <AppRoutes />
+            <Toaster position="bottom-right" />
+          </TaskProvider>
+        </UserProvider>
+      </ThemeProvider>
     </BrowserRouter>
   )
 }

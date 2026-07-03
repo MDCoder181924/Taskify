@@ -339,3 +339,8 @@ select option {
   background-color: var(--surface) !important;
   color: var(--on-surface) !important;
 }
+
+.text-white-always {
+  color: #ffffff !important;
+}
+

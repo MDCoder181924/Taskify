@@ -71,7 +71,7 @@ export default function Pricing() {
           >
             {/* Recommended Tag */}
             {tier.recommended && (
-              <span className="absolute top-4 right-4 bg-primary text-[#050505] px-3.5 py-1 rounded-full font-mono text-[9px] uppercase font-bold tracking-wider shadow-[0_0_15px_rgba(239,47,41,0.4)]">
+              <span className="absolute top-4 right-4 bg-primary text-white-always px-3.5 py-1 rounded-full font-mono text-[9px] uppercase font-bold tracking-wider shadow-[0_0_15px_rgba(239,47,41,0.4)]">
                 Recommended
               </span>
             )}
@@ -112,7 +112,7 @@ export default function Pricing() {
             <button 
               className={`w-full py-4 rounded-xl font-sans font-bold text-sm transition-all duration-300 ${
                 tier.recommended 
-                  ? 'bg-primary text-[#050505] shadow-xl shadow-primary/15 hover:shadow-primary/30 hover:scale-103' 
+                  ? 'bg-primary text-white-always shadow-xl shadow-primary/15 hover:shadow-primary/30 hover:scale-103' 
                   : 'bg-white/5 border border-white/10 text-white hover:bg-white/10 hover:border-white/20'
               }`}
             >

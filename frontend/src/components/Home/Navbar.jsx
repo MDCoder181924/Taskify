@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Menu, X, Cpu, Sun, Moon } from 'lucide-react'; 
 import {Link} from 'react-router-dom';
-import { gsap } from 'gsap';
 import { useTheme } from '../../context/ThemeContext';
 
 
@@ -9,54 +8,6 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
-
-useEffect(() => {
-  const tl = gsap.timeline();
-  tl.fromTo("#TaskifayGsap",{
-      y: -100,
-      opacity: 0
-    },
-    {
-      y: 0,
-      opacity: 1,
-      duration: 1,
-      delay:2,
-      ease: "power3.out"
-    }
-  )
-  .fromTo(".HeaderSection",{
-      y: -100,
-      opacity: 0
-    },
-    {
-      y: 0,
-      opacity: 1,
-      duration:0.6,
-      stagger: 0.08,
-      ease: "power3.out"
-    }
-  )
-  .fromTo(".logingsap",{
-    y:-100,
-    opacity:0
-  },{
-    y:0,
-    duration:0.5,
-    opacity:1,
-    delay:1,
-    ease: "power3.out"
-  })
-  .fromTo(".startgsap",{
-    y:-100,
-    opacity:0
-  },{
-    y:0,
-    duration:0.5,
-    opacity:1,
-    ease: "power3.out"
-  });
-
-}, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,7 +25,7 @@ useEffect(() => {
     <header 
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-in-out ${
         scrolled 
-          ? 'h-16 bg-[#050505]/75 backdrop-blur-2xl border-b border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.4)]' 
+          ? 'h-16 bg-background/75 backdrop-blur-2xl border-b border-outline-variant shadow-[0_10px_30px_rgba(0,0,0,0.08)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.4)]' 
           : 'h-20 bg-transparent border-b border-transparent'
       }`}
     >
@@ -99,7 +50,7 @@ useEffect(() => {
             <a 
               key={link} 
               href={`#${link.toLowerCase()}`}
-              className={`HeaderSection font-sans font-medium text-sm transition-all duration-300 relative py-1 hover:text-white ${
+              className={`HeaderSection font-sans font-medium text-sm transition-all duration-300 relative py-1 hover:text-primary dark:hover:text-white ${
                 idx === 0 
                   ? 'text-primary border-b-2 border-primary' 
                   : 'text-on-surface-variant hover:scale-105'
@@ -120,16 +71,17 @@ useEffect(() => {
             {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
           </button>
 
-          <Link to="/login" className="logingsap font-sans font-medium text-sm text-on-surface-variant hover:text-white transition-colors duration-300">
+          <Link to="/login" className="logingsap font-sans font-medium text-sm text-on-surface-variant hover:text-primary dark:hover:text-white transition-colors duration-300">
             Login
           </Link>
           
-          <Link to="register" className="startgsap relative group overflow-hidden px-5 py-2 rounded-full font-sans font-bold text-sm text-white shadow-[0_0_20px_rgba(73,75,214,0.3)] transition-transform duration-300 hover:scale-105 active:scale-95">
+          <Link to="register" className="startgsap relative group overflow-hidden px-5 py-2 rounded-full font-sans font-bold text-sm text-white-always shadow-[0_0_20px_rgba(73,75,214,0.3)] transition-transform duration-300 hover:scale-105 active:scale-95">
             <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-inverse-primary to-secondary-container"></span>
             <span className="absolute bottom-0 left-0 w-full h-0 bg-white/20 transition-all duration-300 group-hover:h-full"></span>
             <span className="relative z-10">Get Started</span>
           </Link>
         </div>
+
 
         {/* Mobile Menu Toggle */}
         <button 

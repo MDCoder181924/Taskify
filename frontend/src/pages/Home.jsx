@@ -19,14 +19,24 @@ function Home() {
     }
     window.scrollTo(0, 0);
 
-    const timer = setTimeout(() => {
+    const handleLoad = () => {
       setFadeLoader(true);
       setTimeout(() => {
         setLoading(false);
-      }, 700); 
-    }, 1000);
+      }, 700);
+    };
 
-    return () => clearTimeout(timer);
+    if (document.readyState === 'complete') {
+      const timer = setTimeout(handleLoad, 300);
+      return () => clearTimeout(timer);
+    } else {
+      window.addEventListener('load', handleLoad);
+      const fallbackTimer = setTimeout(handleLoad, 4000);
+      return () => {
+        window.removeEventListener('load', handleLoad);
+        clearTimeout(fallbackTimer);
+      };
+    }
   }, []);
 
   useEffect(() => {

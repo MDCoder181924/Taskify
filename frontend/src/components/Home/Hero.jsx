@@ -59,7 +59,7 @@ export default function Hero() {
 
         {/* CTAs */}
         <div className="flex flex-wrap gap-4 pt-4">
-          <Link to="register" className="relative group px-8 py-4 rounded-xl font-sans font-bold text-sm text-[#050505] bg-[#EF2F29] shadow-xl shadow-[#EF2F29]/20 transition-all duration-300 hover:scale-105 active:scale-95">
+          <Link to="register" className="relative group px-8 py-4 rounded-xl font-sans font-bold text-sm text-white-always bg-[#EF2F29] shadow-xl shadow-[#EF2F29]/20 transition-all duration-300 hover:scale-105 active:scale-95">
             Get Started for Free
             <span className="absolute bottom-0 left-0 w-full h-0 bg-white/20 transition-all duration-300 group-hover:h-full rounded-xl"></span>
           </Link>

@@ -13,7 +13,7 @@ export default function BentoFeatures() {
           </span>
         </h2>
         <p className="text-on-surface-variant font-sans text-lg max-w-2xl mx-auto leading-relaxed">
-          Engineered with precision for elite engineering teams that demand the absolute peak of operational efficiency.
+          Engineered with precision for individuals and creators who demand the absolute peak of operational efficiency.
         </p>
       </div>
 

@@ -130,14 +130,14 @@ export default function AgentSimulator() {
                 <div 
                   className={`p-4.5 rounded-2xl border text-sm max-w-[80%] leading-relaxed shadow-lg ${
                     msg.sender === 'user'
-                      ? 'bg-gradient-to-r from-primary to-secondary text-[#050505] font-medium border-transparent rounded-tr-none'
+                      ? 'bg-gradient-to-r from-primary to-secondary text-white-always font-medium border-transparent rounded-tr-none'
                       : 'bg-surface-high/60 backdrop-blur border-white/5 text-on-surface rounded-tl-none'
                   }`}
                 >
                   <div>{msg.text}</div>
                   <div 
                     className={`text-[9px] mt-2.5 font-mono ${
-                      msg.sender === 'user' ? 'text-[#050505]/60' : 'text-on-surface-variant/50'
+                      msg.sender === 'user' ? 'text-white-always opacity-60' : 'text-on-surface-variant/50'
                     }`}
                   >
                     {msg.time}
@@ -185,7 +185,7 @@ export default function AgentSimulator() {
             />
             <button 
               type="submit"
-              className="bg-primary text-[#050505] p-3.5 rounded-xl hover:scale-105 transition-transform active:scale-95 flex items-center justify-center shadow-lg"
+              className="bg-primary text-white-always p-3.5 rounded-xl hover:scale-105 transition-transform active:scale-95 flex items-center justify-center shadow-lg"
             >
               <Send className="w-4.5 h-4.5" />
             </button>

@@ -12,8 +12,25 @@ import collaborationRouter from './routes/Collaboration/collaboration.route.js';
 
 const app = express();
 app.use(helmet())
+const allowedOrigins = [
+    process.env.CLIENT_URL?.replace(/\/+$/, ''),
+    'https://taskify-pi-eight.vercel.app',
+].filter(Boolean);
+
 app.use(cors({
-    origin: process.env.CLIENT_URL?.replace(/\/+$/, ''),
+    origin: (origin, callback) => {
+        if (!origin) return callback(null, true);
+        if (
+            allowedOrigins.indexOf(origin) !== -1 ||
+            origin.startsWith('http://localhost:') ||
+            origin.startsWith('http://127.0.0.1:') ||
+            origin.endsWith('.vercel.app')
+        ) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true
 }))
 app.use(express.json());

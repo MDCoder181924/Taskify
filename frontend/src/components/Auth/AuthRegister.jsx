@@ -21,6 +21,7 @@ import { Link, useNavigate } from "react-router-dom"
 import api from '../../api/axios.js'
 import toast from 'react-hot-toast';
 import { useTheme } from '../../context/ThemeContext';
+import { useUser } from '../../context/UserContext';
 
 export default function AuthRegister({ onNavigate }) {
   const backdropRef = useRef(null);
@@ -38,6 +39,7 @@ export default function AuthRegister({ onNavigate }) {
 
   const navigate = useNavigate();
   const { theme } = useTheme();
+  const { setUser } = useUser();
 
   const registerUser = async (e) => {
     e.preventDefault();
@@ -48,12 +50,13 @@ export default function AuthRegister({ onNavigate }) {
     }
 
     try {
-      await api.post("/auth/user/register", {
+      const res = await api.post("/auth/user/register", {
         fullName: fullName,
         userName: username,
         userEmail: email,
         userPassword: password
       })
+      setUser(res.data.user);
       toast.success("Registration successful")
       navigate("/dashboard")
     } catch (error) {

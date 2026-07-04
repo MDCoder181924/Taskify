@@ -29,7 +29,7 @@ export const getMe = async (req, res) => {
 
 export const getUserCount = async ( req , res) => {
     try{
-        const totalUsers = await User.countDocuments({role : "user"});
+        const totalUsers = await User.countDocuments();
         res.status(200).json({
             success: true,
             totalUsers

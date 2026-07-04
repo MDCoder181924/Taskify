@@ -6,11 +6,11 @@ export default function SpatialUniverse() {
 
   useEffect(() => {
     const nodesData = [
-      { id: 1, name: 'Aether Core', val: 3.5, color: '#EF2F29', x: -12, y: 8, z: 2 },
-      { id: 2, name: 'Quantum Testing', val: 2.8, color: '#ff6b4a', x: 12, y: -6, z: -4 },
-      { id: 3, name: 'Obsidian Database', val: 4.0, color: '#ffa940', x: 2, y: -10, z: 8 },
-      { id: 4, name: 'Nexus Engine', val: 3.0, color: '#b21b16', x: -8, y: -4, z: -10 },
-      { id: 5, name: 'Lumina Interface', val: 2.5, color: '#c93b1d', x: 8, y: 10, z: 6 },
+      { id: 1, name: 'Aether Core Engine', tasks: 14, priority: 'CRITICAL', progress: '65%', color: '#EF2F29', x: -12, y: 8, z: 2 },
+      { id: 2, name: 'Quantum QA Testing', tasks: 8, priority: 'HIGH', progress: '88%', color: '#ff6b4a', x: 12, y: -6, z: -4 },
+      { id: 3, name: 'Obsidian Database Sync', tasks: 22, priority: 'CRITICAL', progress: '45%', color: '#ffa940', x: 2, y: -10, z: 8 },
+      { id: 4, name: 'Nexus Task Router', tasks: 5, priority: 'MEDIUM', progress: '92%', color: '#b21b16', x: -8, y: -4, z: -10 },
+      { id: 5, name: 'Lumina Interface UI', tasks: 17, priority: 'LOW', progress: '74%', color: '#c93b1d', x: 8, y: 10, z: 6 },
     ];
 
     setActiveNode(nodesData[0]);
@@ -56,27 +56,27 @@ export default function SpatialUniverse() {
 
         </div>
 
-        {/* Right Side: Active Node Hologram Panel */}
+        {/* Right Side: Active Project Focus Panel */}
         {activeNode && (
-          <div className="glass-card p-6 rounded-2.5xl border-white/25 backdrop-blur-3xl pointer-events-auto w-64 shadow-[0_15px_30px_rgba(0,0,0,0.4)] animate-pulse relative z-10 self-end lg:self-center transition-all duration-1000">
+          <div className="glass-card p-6 rounded-2.5xl border-outline-variant/35 backdrop-blur-3xl pointer-events-auto w-64 shadow-[0_15px_30px_rgba(0,0,0,0.4)] animate-pulse relative z-10 self-end lg:self-center transition-all duration-1000">
             <div className="absolute top-3 right-3 w-1.5 h-1.5 rounded-full bg-tertiary" />
-            <span className="text-[9px] text-on-surface-variant font-mono uppercase tracking-widest block mb-1">Hologram Focus</span>
-            <div className="font-display font-extrabold text-lg text-white mb-3" style={{ color: activeNode.color }}>
+            <span className="text-[9px] text-on-surface-variant font-mono uppercase tracking-widest block mb-1">Project Focus</span>
+            <div className="font-display font-extrabold text-lg mb-3 transition-colors" style={{ color: activeNode.color }}>
               {activeNode.name}
             </div>
             
             <div className="space-y-2 font-sans text-xs">
-              <div className="flex justify-between border-b border-white/5 pb-1">
-                <span className="text-on-surface-variant">Cluster node:</span>
-                <span className="text-white font-mono">{activeNode.id}</span>
+              <div className="flex justify-between border-b border-outline-variant/30 pb-1">
+                <span className="text-on-surface-variant">Active tasks:</span>
+                <span className="text-on-surface font-mono font-bold">{activeNode.tasks}</span>
               </div>
-              <div className="flex justify-between border-b border-white/5 pb-1">
+              <div className="flex justify-between border-b border-outline-variant/30 pb-1">
                 <span className="text-on-surface-variant">Priority:</span>
-                <span className="text-white font-bold" style={{ color: activeNode.color }}>CRITICAL</span>
+                <span className="font-bold" style={{ color: activeNode.color }}>{activeNode.priority}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-on-surface-variant">Sync velocity:</span>
-                <span className="text-white font-mono">98.4 GB/s</span>
+                <span className="text-on-surface-variant">Completion rate:</span>
+                <span className="text-on-surface font-mono font-bold">{activeNode.progress}</span>
               </div>
             </div>
           </div>

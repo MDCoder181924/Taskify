@@ -20,6 +20,7 @@ import {
 import { Link, useNavigate } from "react-router-dom"
 import api from '../../api/axios.js'
 import toast from 'react-hot-toast';
+import { useTheme } from '../../context/ThemeContext';
 
 export default function AuthRegister({ onNavigate }) {
   const backdropRef = useRef(null);
@@ -36,6 +37,7 @@ export default function AuthRegister({ onNavigate }) {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   const navigate = useNavigate();
+  const { theme } = useTheme();
 
   const registerUser = async (e) => {
     e.preventDefault();
@@ -169,11 +171,9 @@ export default function AuthRegister({ onNavigate }) {
 
     // Animation Loop
     let animationId;
-    const clock = new THREE.Clock();
 
     const animate = () => {
       animationId = requestAnimationFrame(animate);
-      const elapsedTime = clock.getElapsedTime();
 
       // Update stardust positions (linear drift from top-right to bottom-left)
       const posArr = particleCloud.geometry.attributes.position.array;
@@ -257,10 +257,12 @@ export default function AuthRegister({ onNavigate }) {
         <div
           className="p-10 sm:p-12 rounded-[2.8rem] border border-white/10 relative overflow-hidden shadow-[0_30px_70px_rgba(0,0,0,0.75)] hover:shadow-[0_0_60px_rgba(239,47,41,0.18)] hover:border-primary/30 transition-all duration-700 flex flex-col gap-7"
           style={{
-            background: 'rgba(5, 5, 5, 0.72)',
+            background: theme === 'dark' ? 'rgba(5, 5, 5, 0.72)' : 'rgba(255, 255, 255, 0.72)',
             backdropFilter: 'blur(30px)',
             WebkitBackdropFilter: 'blur(30px)',
-            boxShadow: '0 30px 70px rgba(0,0,0,0.65), inset 0 1px 1px rgba(255,255,255,0.08)'
+            boxShadow: theme === 'dark'
+              ? '0 30px 70px rgba(0,0,0,0.65), inset 0 1px 1px rgba(255,255,255,0.08)'
+              : '0 30px 70px rgba(0,110,47,0.08), inset 0 1px 1px rgba(255,255,255,0.8)'
           }}
         >
 
@@ -306,7 +308,7 @@ export default function AuthRegister({ onNavigate }) {
           </div>
 
           {/* Separator Line */}
-          <div className="h-[1px] bg-white/5 w-full" />
+          <div className="h-[1px] bg-outline-variant opacity-30 w-full" />
 
           {/* Form Header */}
           <div className="text-left flex flex-col gap-1.5">
@@ -423,7 +425,7 @@ export default function AuthRegister({ onNavigate }) {
             <div className="flex items-start gap-2.5 py-1 px-1">
               <input
                 type="checkbox"
-                className="mt-1 bg-black/20 border-white/10 rounded text-primary focus:ring-offset-background focus:ring-primary w-4.5 h-4.5 cursor-pointer"
+                className="accent-primary rounded bg-surface border-white/10 w-4.5 h-4.5 cursor-pointer"
                 required
               />
               <label className="text-on-surface-variant text-[11px] leading-relaxed cursor-pointer select-none">
@@ -434,7 +436,7 @@ export default function AuthRegister({ onNavigate }) {
             {/* Create Account Action */}
             <button
               type="submit"
-              className="w-full relative group overflow-hidden py-4 rounded-2xl font-sans font-bold text-sm text-white shadow-[0_0_25px_rgba(174,5,198,0.4)] transition-transform duration-300 hover:scale-102 active:scale-98 cursor-pointer mt-1"
+              className="w-full relative group overflow-hidden py-4 rounded-2xl font-sans font-bold text-sm text-white-always shadow-[0_0_25px_rgba(174,5,198,0.4)] transition-transform duration-300 hover:scale-102 active:scale-98 cursor-pointer mt-1"
             >
               <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary-container via-secondary-container to-primary animate-pulse"></span>
               <span className="absolute bottom-0 left-0 w-full h-0 bg-white/20 transition-all duration-300 group-hover:h-full"></span>
@@ -449,10 +451,15 @@ export default function AuthRegister({ onNavigate }) {
           {/* OR Divider */}
           <div className="relative my-1">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-white/5"></div>
+              <div className="w-full border-t border-outline-variant opacity-30"></div>
             </div>
             <div className="relative flex justify-center text-[9px] font-mono uppercase tracking-widest">
-              <span className="px-4 bg-[#050505] rounded-md text-on-surface-variant/40">Or continue with</span>
+              <span 
+                className="px-4 rounded-md text-on-surface-variant/40"
+                style={{ backgroundColor: theme === 'dark' ? '#050505' : '#ffffff' }}
+              >
+                Or continue with
+              </span>
             </div>
           </div>
 

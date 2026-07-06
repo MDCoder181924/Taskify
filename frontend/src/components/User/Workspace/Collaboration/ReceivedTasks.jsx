@@ -69,7 +69,7 @@ export default function ReceivedTasks({
                   <>
                     <button
                       onClick={() => handleCompleteTask(task.id)}
-                      className="flex-1 sm:flex-initial bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs py-2 px-3.5 rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-95 shadow-md shadow-emerald-500/10"
+                      className="flex-1 sm:flex-initial bg-emerald-500 hover:bg-emerald-600 text-white-always font-bold text-xs py-2 px-3.5 rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-95 shadow-md shadow-emerald-500/10"
                     >
                       <Check className="w-4 h-4" />
                       <span>Complete</span>

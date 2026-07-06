@@ -26,9 +26,9 @@ export default function CollaborationStats({
         <div className="flex items-start justify-between">
           <div>
             <p className="text-[10px] uppercase font-mono font-bold tracking-wider text-white/50">Inbox Tasks</p>
-            <h3 className="text-2xl font-black text-[#4cd7f6] mt-1.5">{pendingReceivedCount}</h3>
+            <h3 className="text-2xl font-black text-sky-600 dark:text-[#4cd7f6] mt-1.5">{pendingReceivedCount}</h3>
           </div>
-          <div className="p-2.5 rounded-xl bg-[#4cd7f6]/10 text-[#4cd7f6]">
+          <div className="p-2.5 rounded-xl bg-[#4cd7f6]/10 text-sky-600 dark:text-[#4cd7f6]">
             <Inbox className="w-5 h-5 animate-pulse" />
           </div>
         </div>
@@ -39,9 +39,9 @@ export default function CollaborationStats({
         <div className="flex items-start justify-between">
           <div>
             <p className="text-[10px] uppercase font-mono font-bold tracking-wider text-white/50">Tasks Completed</p>
-            <h3 className="text-2xl font-black text-emerald-400 mt-1.5">{completedReceivedCount}</h3>
+            <h3 className="text-2xl font-black text-emerald-600 dark:text-emerald-400 mt-1.5">{completedReceivedCount}</h3>
           </div>
-          <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400">
+          <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
             <CheckSquare className="w-5 h-5" />
           </div>
         </div>
@@ -52,9 +52,9 @@ export default function CollaborationStats({
         <div className="flex items-start justify-between">
           <div>
             <p className="text-[10px] uppercase font-mono font-bold tracking-wider text-white/50">Sent Tasks</p>
-            <h3 className="text-2xl font-black text-[#c0c1ff] mt-1.5">{totalSentCount}</h3>
+            <h3 className="text-2xl font-black text-indigo-600 dark:text-[#c0c1ff] mt-1.5">{totalSentCount}</h3>
           </div>
-          <div className="p-2.5 rounded-xl bg-[#c0c1ff]/10 text-[#c0c1ff]">
+          <div className="p-2.5 rounded-xl bg-[#c0c1ff]/10 text-indigo-600 dark:text-[#c0c1ff]">
             <Send className="w-5 h-5" />
           </div>
         </div>

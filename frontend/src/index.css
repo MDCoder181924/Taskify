@@ -330,6 +330,19 @@ html, body {
 .border-white\/5 { border-color: var(--outline-variant) !important; }
 .border-white\/15 { border-color: var(--outline-variant) !important; }
 
+/* Light Mode specific opacity fixes */
+html:not(.dark) .bg-white\/5 { background-color: rgba(255, 255, 255, 0.6) !important; }
+html:not(.dark) .bg-white\/10 { background-color: rgba(255, 255, 255, 0.8) !important; }
+html:not(.dark) .bg-white\/20 { background-color: rgba(255, 255, 255, 0.95) !important; }
+
+html:not(.dark) .text-white\/80 { color: var(--on-surface) !important; opacity: 0.8; }
+html:not(.dark) .text-white\/70 { color: var(--on-surface) !important; opacity: 0.7; }
+html:not(.dark) .text-white\/60 { color: var(--on-surface-variant) !important; opacity: 0.6; }
+html:not(.dark) .text-white\/50 { color: var(--on-surface-variant) !important; opacity: 0.55; }
+html:not(.dark) .text-white\/40 { color: var(--on-surface-variant) !important; opacity: 0.45; }
+html:not(.dark) .text-white\/30 { color: var(--on-surface-variant) !important; opacity: 0.35; }
+html:not(.dark) .text-white\/20 { color: var(--on-surface-variant) !important; opacity: 0.25; }
+
 .hover\:text-white:hover { color: var(--on-surface) !important; }
 .hover\:bg-white\/10:hover { background-color: var(--surface-high) !important; }
 .hover\:bg-white\/5:hover { background-color: var(--surface-high) !important; }

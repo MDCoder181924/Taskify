@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Sparkles, History, MoreVertical, Send, Calendar, Clock, Terminal } from 'lucide-react';
+import api from '../../../../api/axios';
 
 export default function ChatArea() {
   const [messages, setMessages] = useState([
@@ -28,32 +29,70 @@ export default function ChatArea() {
     }
   ]);
   const [inputText, setInputText] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, isLoading]);
 
   const handleSendMessage = (e) => {
     e.preventDefault();
-    if (!inputText.trim()) return;
+    const textToSend = inputText.trim();
+    if (!textToSend || isLoading) return;
 
     // Add user message
     const newUserMessage = {
       id: `msg-${Date.now()}`,
       sender: 'user',
-      text: inputText,
+      text: textToSend,
       time: 'Just now'
     };
 
+    // Save previous messages context before updating
+    const historyContext = [...messages, newUserMessage];
+
     setMessages(prev => [...prev, newUserMessage]);
     setInputText('');
+    setIsLoading(true);
 
-    // Simulate AI typing response
-    setTimeout(() => {
-      const aiResponse = {
+    api.post("/user/assistant/chat", {
+      message: textToSend,
+      history: historyContext
+    })
+    .then((res) => {
+      if (res.data && res.data.success) {
+        const aiResponse = {
+          id: `msg-${Date.now() + 1}`,
+          sender: 'assistant',
+          text: res.data.reply,
+          time: 'Just now'
+        };
+        setMessages(prev => [...prev, aiResponse]);
+      } else {
+        const errorResponse = {
+          id: `msg-${Date.now() + 1}`,
+          sender: 'assistant',
+          text: res.data?.message || 'I encountered an unexpected issue formulating a response.',
+          time: 'Just now'
+        };
+        setMessages(prev => [...prev, errorResponse]);
+      }
+    })
+    .catch((err) => {
+      console.error("AI assistant API error:", err);
+      const errMsg = err.response?.data?.message || 'Could not establish connection to the AI Core. Please verify if GEMINI_API_KEY is correctly set in backend/.env.';
+      const errorResponse = {
         id: `msg-${Date.now() + 1}`,
         sender: 'assistant',
-        text: 'Syncing query with cognitive core... Recommendation formulated successfully.',
+        text: errMsg,
         time: 'Just now'
       };
-      setMessages(prev => [...prev, aiResponse]);
-    }, 1000);
+      setMessages(prev => [...prev, errorResponse]);
+    })
+    .finally(() => {
+      setIsLoading(false);
+    });
   };
 
   return (
@@ -108,8 +147,8 @@ export default function ChatArea() {
               <div 
                 className={`p-4 rounded-2xl ${
                   isAI 
-                    ? 'bg-[#5c0402]/10 border border-[#ffa8a5]/20 rounded-tl-none text-[#f3f4f6]' 
-                    : 'bg-[#b81b16]/15 border border-[#EF2F29]/20 rounded-tr-none text-white'
+                    ? 'bg-surface-low border border-outline-variant rounded-tl-none text-on-surface dark:bg-[#5c0402]/10 dark:border-[#ffa8a5]/20 dark:text-[#f3f4f6]' 
+                    : 'bg-primary border border-primary/20 rounded-tr-none text-white-always dark:bg-[#b81b16]/15 dark:border-[#EF2F29]/20 dark:text-white-always'
                 } backdrop-blur-md shadow-lg shadow-black/10`}
               >
                 <p className="text-xs font-sans font-medium leading-relaxed">{msg.text}</p>
@@ -140,6 +179,21 @@ export default function ChatArea() {
             </div>
           );
         })}
+        {isLoading && (
+          <div className="flex flex-col max-w-[85%] items-start self-start animate-fade-in">
+            <div className="flex items-center gap-2 mb-1.5 px-1.5">
+              <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-[#ffa8a5]/70">
+                Assistant
+              </span>
+            </div>
+            <div className="p-4 rounded-2xl bg-surface-low border border-outline-variant rounded-tl-none dark:bg-[#5c0402]/10 dark:border-[#ffa8a5]/20 backdrop-blur-md shadow-lg shadow-black/10 flex items-center gap-1.5">
+              <div className="w-1.5 h-1.5 bg-primary dark:bg-[#ffa8a5] rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+              <div className="w-1.5 h-1.5 bg-primary dark:bg-[#ffa8a5] rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+              <div className="w-1.5 h-1.5 bg-primary dark:bg-[#ffa8a5] rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+            </div>
+          </div>
+        )}
+        <div ref={messagesEndRef} />
       </div>
 
       {/* Input controls pane */}

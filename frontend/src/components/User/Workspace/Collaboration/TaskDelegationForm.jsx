@@ -130,7 +130,7 @@ export default function TaskDelegationForm({
           <div className="md:col-span-1 flex items-end">
             <button
               type="submit"
-              className="w-full py-3.5 bg-gradient-to-r from-[#4cd7f6] to-[#009bde] text-white hover:from-[#4cd7f6] hover:to-[#00b2ff] rounded-xl font-bold uppercase text-xs tracking-wider transition-all hover:scale-[1.01] active:scale-99 border border-white/10 flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-cyan-500/10"
+              className="w-full py-3.5 bg-gradient-to-r from-[#4cd7f6] to-[#009bde] text-white-always hover:from-[#4cd7f6] hover:to-[#00b2ff] rounded-xl font-bold uppercase text-xs tracking-wider transition-all hover:scale-[1.01] active:scale-99 border border-white/10 flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-cyan-500/10"
             >
               <Send className="w-4 h-4" />
               <span>Deploy Task</span>

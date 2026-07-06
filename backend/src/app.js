@@ -9,6 +9,7 @@ import passport from './config/passport.js'
 import userTaskRoutes from './routes/User/tasks.router.js';
 import userRouter from './routes/User/user.router.js';
 import collaborationRouter from './routes/Collaboration/collaboration.route.js';
+import assistantRouter from './routes/User/assistant.router.js';
 
 const app = express();
 app.use(helmet())
@@ -43,6 +44,7 @@ app.use('/auth/admin' , adminRoutes);
 app.use('/user/task' , userTaskRoutes);
 app.use('/user' , userRouter);
 app.use('/user/collaboration', collaborationRouter);
+app.use('/user/assistant', assistantRouter);
 
 app.get("/", (req, res) => {
     res.send("Welcome to Taskify API");

@@ -96,7 +96,7 @@ export default function ProjectLaunchpad({
             disabled={!projectName.trim()}
             className={`w-full py-3.5 rounded-xl font-bold uppercase text-xs tracking-wider transition-all select-none duration-300 border border-white/10 flex items-center justify-center gap-2 cursor-pointer ${
               projectName.trim()
-                ? 'bg-gradient-to-r from-[#EF2F29] to-[#ff6b4a] hover:from-[#EF2F29] hover:to-[#ff5c36] text-white hover:scale-[1.01] active:scale-99 shadow-lg shadow-red-500/10'
+                ? 'bg-gradient-to-r from-[#EF2F29] to-[#ff6b4a] hover:from-[#EF2F29] hover:to-[#ff5c36] text-white-always hover:scale-[1.01] active:scale-99 shadow-lg shadow-red-500/10'
                 : 'bg-white/5 text-white/30 cursor-not-allowed border-white/5'
             }`}
           >

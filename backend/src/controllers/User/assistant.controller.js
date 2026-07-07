@@ -73,11 +73,7 @@ Guidelines:
       interaction = await ai.interactions.create({
         model: chosenModel,
         input: fullPrompt,
-        config: {
-          systemInstruction: {
-            parts: [{ text: systemInstructionText }]
-          }
-        }
+        system_instruction: systemInstructionText
       });
     } catch (err) {
       console.warn(`Failed with ${chosenModel}: ${err.message}. Trying gemini-2.5-flash fallback...`);
@@ -86,11 +82,7 @@ Guidelines:
         interaction = await ai.interactions.create({
           model: chosenModel,
           input: fullPrompt,
-          config: {
-            systemInstruction: {
-              parts: [{ text: systemInstructionText }]
-            }
-          }
+          system_instruction: systemInstructionText
         });
       } catch (err2) {
         console.warn(`Failed with ${chosenModel}: ${err2.message}. Trying gemini-1.5-flash fallback...`);
@@ -98,11 +90,7 @@ Guidelines:
         interaction = await ai.interactions.create({
           model: chosenModel,
           input: fullPrompt,
-          config: {
-            systemInstruction: {
-              parts: [{ text: systemInstructionText }]
-            }
-          }
+          system_instruction: systemInstructionText
         });
       }
     }

@@ -61,7 +61,7 @@ export default function Hero() {
         <div className="flex flex-wrap gap-4 pt-4">
           <Link to="register" className="relative group px-8 py-4 rounded-xl font-sans font-bold text-sm text-white-always bg-[#EF2F29] shadow-xl shadow-[#EF2F29]/20 transition-all duration-300 hover:scale-105 active:scale-95">
             Get Started for Free
-            <span className="absolute bottom-0 left-0 w-full h-0 bg-white/20 transition-all duration-300 group-hover:h-full rounded-xl"></span>
+            <span className="absolute bottom-0 left-0 w-full h-0 bg-[rgba(255,255,255,0.2)] transition-all duration-300 group-hover:h-full rounded-xl"></span>
           </Link>
           
           <button className="glass-card px-8 py-4 rounded-xl flex items-center gap-2 font-sans font-bold text-sm text-white hover:bg-white/10 border-white/10 hover:border-white/25 transition-all duration-300 active:scale-95">

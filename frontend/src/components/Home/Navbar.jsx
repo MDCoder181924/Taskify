@@ -77,7 +77,7 @@ export default function Navbar() {
           
           <Link to="register" className="startgsap relative group overflow-hidden px-5 py-2 rounded-full font-sans font-bold text-sm text-white-always shadow-[0_0_20px_rgba(73,75,214,0.3)] transition-transform duration-300 hover:scale-105 active:scale-95">
             <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary to-secondary"></span>
-            <span className="absolute bottom-0 left-0 w-full h-0 bg-white/20 transition-all duration-300 group-hover:h-full"></span>
+            <span className="absolute bottom-0 left-0 w-full h-0 bg-[rgba(255,255,255,0.2)] transition-all duration-300 group-hover:h-full"></span>
             <span className="relative z-10">Get Started</span>
           </Link>
         </div>

@@ -91,7 +91,7 @@ export default function AssistantView() {
   }, []);
 
   return (
-    <div className="flex-1 flex flex-col lg:flex-row relative z-10 h-full overflow-hidden animate-fade-in min-h-[78vh] bg-[#000000]/30 rounded-3xl border border-white/5 shadow-2xl">
+    <div className="flex-1 flex flex-col lg:flex-row relative z-10 h-full overflow-hidden animate-fade-in min-h-[78vh] bg-surface-low rounded-3xl border border-outline-variant shadow-2xl">
       
       {/* Dynamic interactive background network simulation */}
       <canvas 

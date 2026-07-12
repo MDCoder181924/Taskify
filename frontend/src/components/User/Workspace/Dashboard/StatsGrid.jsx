@@ -39,13 +39,13 @@ export default function StatsGrid({ tasks }) {
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6">
       {stats.map((stat, idx) => {
         const Icon = stat.icon;
         return (
           <div 
             key={idx}
-            className={`glass-card rounded-2xl p-6 flex flex-col justify-between group ${stat.hoverBorder} transition-all duration-300 shadow-md shadow-black/20`}
+            className={`glass-card rounded-2xl p-4 sm:p-6 flex flex-col justify-between group ${stat.hoverBorder} transition-all duration-300 shadow-md shadow-black/20`}
           >
             <div className="flex justify-between items-start">
               <span className={`p-2 rounded-lg ${stat.colorClass} transition-transform group-hover:scale-110 duration-300`}>
@@ -70,7 +70,7 @@ export default function StatsGrid({ tasks }) {
       })}
 
       {/* Productivity Score Premium Bento Box with Rotating Holographic Ring */}
-      <div className="glass-card rounded-2xl p-6 flex flex-col justify-between bg-gradient-to-br from-[#EF2F29]/5 to-transparent border-[#EF2F29]/10 group hover:border-[#ffa940]/30 transition-all duration-300 shadow-md shadow-black/20">
+      <div className="glass-card rounded-2xl p-4 sm:p-6 flex flex-col justify-between bg-gradient-to-br from-[#EF2F29]/5 to-transparent border-[#EF2F29]/10 group hover:border-[#ffa940]/30 transition-all duration-300 shadow-md shadow-black/20">
         <div className="flex justify-between items-start">
           <div className="w-10 h-10 rounded-full border-2 border-[#ffa940] border-t-transparent animate-spin flex items-center justify-center" style={{ animationDuration: '3s' }}>
             <Sparkles className="w-4 h-4 text-[#ffa940] animate-pulse" />

@@ -1,7 +1,5 @@
 import { useEffect, useRef } from 'react';
-import InsightsPanel from './InsightsPanel';
 import ChatArea from './ChatArea';
-import RecommendationsPanel from './RecommendationsPanel';
 
 export default function AssistantView() {
   const canvasRef = useRef(null);
@@ -91,22 +89,16 @@ export default function AssistantView() {
   }, []);
 
   return (
-    <div className="flex-1 flex flex-col lg:flex-row relative z-10 h-full overflow-hidden animate-fade-in min-h-[78vh] bg-surface-low rounded-3xl border border-outline-variant shadow-2xl">
+    <div className="flex-1 flex flex-col relative z-10 h-[calc(100vh-7.5rem)] overflow-hidden animate-fade-in">
       
       {/* Dynamic interactive background network simulation */}
       <canvas 
         ref={canvasRef} 
-        className="absolute inset-0 pointer-events-none opacity-50 z-0 rounded-3xl" 
+        className="absolute inset-0 pointer-events-none opacity-50 z-0" 
       />
 
-      {/* 1. Left side insights and history panel */}
-      <InsightsPanel />
-
-      {/* 2. Middle conversational log area */}
+      {/* 2. Conversational log area */}
       <ChatArea />
-
-      {/* 3. Right side actionable alerts panel */}
-      <RecommendationsPanel />
 
     </div>
   );

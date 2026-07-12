@@ -14,7 +14,7 @@ export default function Workspace({ onNavigate }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div className="relative min-h-screen bg-background text-on-background overflow-x-hidden font-sans pb-12 animate-fade-in transition-colors duration-300">
+    <div className="relative min-h-screen bg-background text-on-background overflow-x-hidden font-sans pb-12 transition-colors duration-300">
 
       {/* Responsive Sidebar for desktop viewports */}
       <Sidebar onNavigate={onNavigate} currentTab={currentTab} setCurrentTab={setCurrentTab} />
@@ -80,7 +80,7 @@ export default function Workspace({ onNavigate }) {
       />
 
       {/* Main content grid viewports */}
-      <main className="pt-24 md:pt-20 px-6 md:pl-[280px] md:pr-12 min-h-screen relative z-10">
+      <main className="pt-24 md:pt-20 px-6 md:pl-[280px] md:pr-12 min-h-screen relative z-10 animate-fade-in">
 
         {currentTab === 'dashboard' ? (
           <DashbordView />

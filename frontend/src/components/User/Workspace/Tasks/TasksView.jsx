@@ -160,20 +160,17 @@ export default function TasksView() {
 
       {/* 5. Modern Glassmorphic Create Task Modal Overlay */}
       {isAddModalOpen && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 z-50 animate-fade-in select-none">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center p-4 z-50 animate-fade-in select-none">
           <div 
-            className="w-full max-w-lg glass-card p-8 sm:p-10 rounded-[2.5rem] border border-white/10 relative overflow-hidden shadow-[0_30px_70px_rgba(0,0,0,0.8)]"
-            style={{
-              background: 'rgba(5, 5, 5, 0.95)',
-            }}
+            className="w-full max-w-lg glass-card p-8 sm:p-10 rounded-[2.5rem] border border-outline-variant relative overflow-hidden shadow-2xl bg-surface"
           >
-            <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-[#EF2F29] to-transparent" />
+            <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-primary to-transparent" />
             
             <div className="flex justify-between items-center mb-6">
-              <h3 className="font-display font-extrabold text-xl text-white tracking-tight">Create Task Node</h3>
+              <h3 className="font-display font-extrabold text-xl text-on-surface tracking-tight">Create Task Node</h3>
               <button 
                 onClick={() => {if(!isCreatingTask) setIsAddModalOpen(false)}}
-                className={`w-8 h-8 rounded-full bg-white/5 border border-white/5 hover:bg-white/10 flex items-center justify-center text-[#c7c4d7] hover:text-white transition-colors ${
+                className={`w-8 h-8 rounded-full bg-surface-high border border-outline-variant hover:bg-surface-highest flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors ${
                   isCreatingTask ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
               >
                 ✕
@@ -182,64 +179,64 @@ export default function TasksView() {
             
             <form onSubmit={handleAddTaskSubmit} className="flex flex-col gap-5 text-left">
               <div className="flex flex-col gap-1.5">
-                <label className="font-mono text-[9px] text-[#c7c4d7]/60 uppercase tracking-widest px-1">Task Title</label>
+                <label className="font-mono text-[9px] text-on-surface-variant/70 uppercase tracking-widest px-1">Task Title</label>
                 <input 
                   type="text"
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
                   placeholder="e.g. Sync Quantum Database Nodes"
-                  className="w-full bg-[#030303]/60 border border-white/10 rounded-xl px-4 py-3 text-xs focus:border-[#EF2F29] focus:ring-0 outline-none transition-all placeholder-[#908fa0]/25 text-white"
+                  className="w-full bg-surface-low border border-outline-variant rounded-xl px-4 py-3 text-xs focus:border-primary focus:ring-0 outline-none transition-all placeholder-on-surface-variant/30 text-on-surface"
                   required
                 />
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="font-mono text-[9px] text-[#c7c4d7]/60 uppercase tracking-widest px-1">Description</label>
+                <label className="font-mono text-[9px] text-on-surface-variant/70 uppercase tracking-widest px-1">Description</label>
                 <textarea 
                   value={newDesc}
                   onChange={(e) => setNewDesc(e.target.value)}
                   placeholder="Define task parameters and core telemetry instructions..."
-                  className="w-full h-24 bg-[#030303]/60 border border-white/10 rounded-xl px-4 py-3 text-xs focus:border-[#EF2F29] focus:ring-0 outline-none transition-all placeholder-[#908fa0]/25 text-white resize-none"
+                  className="w-full h-24 bg-surface-low border border-outline-variant rounded-xl px-4 py-3 text-xs focus:border-primary focus:ring-0 outline-none transition-all placeholder-on-surface-variant/30 text-on-surface resize-none"
                   required
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1.5">
-                  <label className="font-mono text-[9px] text-[#c7c4d7]/60 uppercase tracking-widest px-1">Priority</label>
+                  <label className="font-mono text-[9px] text-on-surface-variant/70 uppercase tracking-widest px-1">Priority</label>
                   <select
                     value={newPriority}
                     onChange={(e) => setNewPriority(e.target.value)}
-                    className="w-full bg-[#030303]/60 border border-white/10 rounded-xl px-3 py-3 text-xs focus:border-[#EF2F29] focus:ring-0 outline-none text-[#c7c4d7] cursor-pointer"
+                    className="w-full bg-surface-low border border-outline-variant rounded-xl px-3 py-3 text-xs focus:border-primary focus:ring-0 outline-none text-on-surface cursor-pointer"
                   >
-                    <option value="Low">Low Glow</option>
-                    <option value="Medium">Medium Pulse</option>
-                    <option value="High">High Crimson Alert</option>
+                    <option value="Low" className="bg-surface text-on-surface">Low Glow</option>
+                    <option value="Medium" className="bg-surface text-on-surface">Medium Pulse</option>
+                    <option value="High" className="bg-surface text-on-surface">High Crimson Alert</option>
                   </select>
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="font-mono text-[9px] text-[#c7c4d7]/60 uppercase tracking-widest px-1">Category</label>
+                  <label className="font-mono text-[9px] text-on-surface-variant/70 uppercase tracking-widest px-1">Category</label>
                   <input 
                     type="text"
                     value={newCategory}
                     onChange={(e) => setNewCategory(e.target.value)}
                     placeholder="e.g. Synaptic Core"
-                    className="w-full bg-[#030303]/60 border border-white/10 rounded-xl px-4 py-3 text-xs focus:border-[#EF2F29] focus:ring-0 outline-none transition-all placeholder-[#908fa0]/25 text-white"
+                    className="w-full bg-surface-low border border-outline-variant rounded-xl px-4 py-3 text-xs focus:border-primary focus:ring-0 outline-none transition-all placeholder-on-surface-variant/30 text-on-surface"
                     required
                   />
                 </div>
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="font-mono text-[9px] text-[#c7c4d7]/60 uppercase tracking-widest px-1">Due Date</label>
+                <label className="font-mono text-[9px] text-on-surface-variant/70 uppercase tracking-widest px-1">Due Date</label>
                 <input 
                   type="date"
                   min={toLocalDateKey()}
                   onFocus={(e) => e.target.showPicker?.()}
                   value={newDueDate}
                   onChange={(e) => setNewDueDate(e.target.value)}
-                  className="w-full bg-[#030303]/60 border border-white/10 rounded-xl px-4 py-3 text-xs focus:border-[#EF2F29] focus:ring-0 outline-none transition-all placeholder-[#908fa0]/25 text-white"
+                  className="w-full bg-surface-low border border-outline-variant rounded-xl px-4 py-3 text-xs focus:border-primary focus:ring-0 outline-none transition-all placeholder-on-surface-variant/30 text-on-surface"
                   required
                 />
               </div>
@@ -247,7 +244,7 @@ export default function TasksView() {
               <button 
                 type="submit"
                 disabled={isCreatingTask}
-                className={`w-full mt-2 py-4 bg-gradient-to-r from-[#EF2F29] to-[#ff6b66] text-white rounded-xl font-sans font-bold text-xs uppercase tracking-wider shadow-lg shadow-[#EF2F29]/15 transition-all ${
+                className={`w-full mt-2 py-4 bg-primary text-on-primary rounded-xl font-sans font-bold text-xs uppercase tracking-wider shadow-lg shadow-primary/10 hover:opacity-90 transition-all ${
                   isCreatingTask ? 'opacity-60 cursor-not-allowed' : 'hover:scale-102 active:scale-98 cursor-pointer' }`}
                 >
                 {isCreatingTask ? 'Task Creating...' : 'Initialize Node Task'}

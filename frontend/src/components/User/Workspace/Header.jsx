@@ -1,4 +1,4 @@
-import { Search, Bell, Settings, Sun, Moon } from 'lucide-react';
+import { Bell, Settings, Sun, Moon } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useTheme } from '../../../context/ThemeContext';
 
@@ -6,18 +6,7 @@ export default function Header({ user }) {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <header className="fixed top-0 w-full z-30 flex justify-between items-center px-6 md:px-12 h-16 bg-background/80 backdrop-blur-md border-b border-outline-variant/30 md:pl-[280px] transition-colors duration-300">
-      {/* Search Input Bar */}
-      <div className="flex items-center flex-1 max-w-xl">
-        <div className="relative w-full md:max-w-md group">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-on-surface-variant/75 group-focus-within:text-primary transition-colors" />
-          <input 
-            type="text"
-            placeholder="Search tasks, docs, or AI commands..."
-            className="w-full bg-surface-low border border-outline-variant/30 rounded-full py-2 pl-10 pr-4 text-sm focus:border-primary focus:ring-0 outline-none transition-all placeholder-on-surface-variant/40 text-on-surface"
-          />
-        </div>
-      </div>
+    <header className="fixed top-0 w-full z-30 flex justify-end items-center px-6 md:px-12 h-16 bg-background/80 backdrop-blur-md border-b border-outline-variant/30 md:pl-[280px] transition-colors duration-300">
 
       {/* Quick Action Icons & Profile Info */}
       <div className="flex items-center gap-4">

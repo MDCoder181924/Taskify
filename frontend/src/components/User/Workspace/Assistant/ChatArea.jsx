@@ -96,7 +96,7 @@ export default function ChatArea() {
   };
 
   return (
-    <section className="flex-1 flex flex-col relative px-6 lg:px-12 pb-6 z-10">
+    <section className="flex-1 flex flex-col relative px-6 lg:px-12 pb-6 z-10 max-w-4xl mx-auto w-full">
       
       {/* Top Header contexts */}
       <header className="h-16 flex items-center justify-between border-b border-outline-variant mb-4">
@@ -130,7 +130,7 @@ export default function ChatArea() {
       </header>
 
       {/* Chat scroll box */}
-      <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar flex flex-col gap-6 py-4 max-h-[62vh] scroll-smooth">
+      <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar flex flex-col gap-6 py-4 scroll-smooth">
         {messages.map((msg) => {
           const isAI = msg.sender === 'assistant';
           return (
@@ -145,18 +145,18 @@ export default function ChatArea() {
               </div>
 
               <div 
-                className={`p-4 rounded-2xl ${
+                className={
                   isAI 
-                    ? 'bg-surface border border-outline-variant rounded-tl-none text-on-surface' 
-                    : 'bg-primary border border-primary/20 rounded-tr-none text-on-primary'
-                } backdrop-blur-md shadow-lg shadow-black/10`}
+                    ? 'text-on-surface text-xs font-sans font-medium leading-relaxed w-full' 
+                    : 'p-3.5 px-5 rounded-2xl rounded-tr-none bg-primary/10 border border-primary/20 text-on-surface text-xs font-sans font-medium leading-relaxed'
+                }
               >
-                <p className="text-xs font-sans font-medium leading-relaxed">{msg.text}</p>
+                <p className="leading-relaxed">{msg.text}</p>
 
                 {/* Confirm Reallocation interactive widget */}
                 {isAI && msg.recommendation && (
-                  <div className="mt-4 grid grid-cols-1 gap-2">
-                    <div className="bg-surface-low rounded-xl p-3 border border-outline-variant flex items-center justify-between gap-4">
+                  <div className="mt-3.5 grid grid-cols-1 gap-2 max-w-md">
+                    <div className="bg-surface rounded-xl p-3 border border-outline-variant flex items-center justify-between gap-4 shadow-sm">
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/20">
                           <Clock className="w-4 h-4 text-primary" />
@@ -186,7 +186,7 @@ export default function ChatArea() {
                 Assistant
               </span>
             </div>
-            <div className="p-4 rounded-2xl bg-surface border border-outline-variant rounded-tl-none backdrop-blur-md shadow-lg shadow-black/10 flex items-center gap-1.5">
+            <div className="flex items-center gap-1.5 py-2 px-1">
               <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
               <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
               <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
